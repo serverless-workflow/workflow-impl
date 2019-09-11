@@ -1,6 +1,8 @@
 # Serverless Workflow Impl
 
-**Note**: In order to build you have to first build the "spi-changes" of the workflow-api module -- https://github.com/serverless-workflow/workflow-api/tree/spi-changes
+**Note**: In order to build currently you have to first build the "spi-changes" branch
+of the workflow-api module -- https://github.com/serverless-workflow/workflow-api/tree/spi-changes
+This limitation should be lifted soon
 
 This project provides an implementation of the 
 Serverless Workflow Specification Version 0.1 (https://github.com/cncf/wg-serverless/blob/master/workflow/spec/spec.md)
