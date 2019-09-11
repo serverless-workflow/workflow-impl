@@ -1,0 +1,12 @@
+{
+  "name": "test-wf",
+  "states": [
+    {
+      "time-delay": 5,
+      "next-state": "testNextState",
+      "name": "test-state",
+      "type": "DELAY",
+      "start": false
+    }
+  ]
+}
