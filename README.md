@@ -22,13 +22,6 @@ mvn clean install
 To use this project add the following dependencies into your project pom.xml:
 
 ```xml
-<!-- serverless workflow api/spi -->
-<dependency>
-    <groupId>org.servlerless</groupId>
-    <artifactId>workflow-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
-
 <dependency>
     <groupId>org.servlerless</groupId>
     <artifactId>workflow-impl</artifactId>
