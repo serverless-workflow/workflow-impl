@@ -39,7 +39,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(4,
                      validationErrorList.size());
@@ -54,7 +54,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(2,
                      validationErrorList.size());
@@ -75,7 +75,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
         assertEquals(4,
                      validationErrorList.size());
 
@@ -101,7 +101,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(3,
                      validationErrorList.size());
@@ -125,7 +125,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(1,
                      validationErrorList.size());
@@ -144,7 +144,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         assertNotNull(workflowValidator);
         workflowValidator.setStrictValidationEnabled(true);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(2,
                      validationErrorList.size());
@@ -166,7 +166,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         assertNotNull(workflowValidator);
         workflowValidator.setEnabled(false);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(0,
                      validationErrorList.size());
@@ -182,7 +182,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         assertNotNull(workflowValidator);
         workflowValidator.setSchemaValidationEnabled(false);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
         assertEquals(2,
                      validationErrorList.size());
         expectError(validationErrorList,
@@ -204,7 +204,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         workflowValidator.setSchemaValidationEnabled(false);
         workflowValidator.setStrictValidationEnabled(true);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
         assertEquals(3,
                      validationErrorList.size());
         expectError(validationErrorList,
@@ -227,7 +227,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(1,
                      validationErrorList.size());
@@ -246,7 +246,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(2,
                      validationErrorList.size());
@@ -317,7 +317,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
-        List<ValidationError> validationErrorList = workflowValidator.validate(workflowManager);
+        List<ValidationError> validationErrorList = workflowValidator.validate();
 
         assertEquals(1,
                      validationErrorList.size());

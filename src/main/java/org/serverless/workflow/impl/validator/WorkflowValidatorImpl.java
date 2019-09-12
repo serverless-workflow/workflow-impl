@@ -46,6 +46,7 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
     private boolean strictValidationEnabled = false;
     private List<ValidationError> validationErrors = new ArrayList<>();
     private Schema workflowSchema = WorkflowSchemaLoader.getWorkflowSchema();
+    private WorkflowManager workflowManager;
 
     private static final Logger logger = LoggerFactory.getLogger(WorkflowValidatorImpl.class);
 
@@ -58,7 +59,12 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
     }
 
     @Override
-    public List<ValidationError> validate(WorkflowManager workflowManager) {
+    public void setWorkflowManager(WorkflowManager workflowManager) {
+        this.workflowManager = workflowManager;
+    }
+
+    @Override
+    public List<ValidationError> validate() {
         validationErrors.clear();
         if (enabled) {
             try {

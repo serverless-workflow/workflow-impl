@@ -49,6 +49,16 @@ public class WorkflowManagerImpl implements WorkflowManager {
     public WorkflowManagerImpl() {
         expressionEvaluators = ExpressionEvaluatorProvider.getInstance().get();
         workflowValidator = WorkflowValidatorProvider.getInstance().get();
+
+        if(expressionEvaluators == null) {
+            throw new RuntimeException("Unable to retrieve expression evaluator");
+        }
+
+        if(workflowValidator == null) {
+            throw new RuntimeException("Unable to retrieve workflow validator");
+        }
+
+        workflowValidator.setWorkflowManager(this);
     }
 
     @Override

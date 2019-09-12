@@ -155,7 +155,7 @@ we can get validation errors:
     manager.setJson(json);
     
     WorkflowValidator validator = workflowManager.getWorkflowValidator();
-    List<ValidationError> errors = validator.validate(manager);
+    List<ValidationError> errors = validator.validate();
     
     assertEquals(0, errors.size());
     assertTrue(validator.isValid());

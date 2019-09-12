@@ -55,7 +55,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
         assertNotNull(workflow);
 
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
-        workflowValidator.validate(workflowManager);
+        workflowValidator.validate();
         assertTrue(workflowValidator.isValid());
 
         assertNotNull(workflow.getStates());
