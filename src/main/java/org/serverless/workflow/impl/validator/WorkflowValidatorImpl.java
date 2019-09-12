@@ -195,7 +195,7 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
 
     @Override
     public boolean isValid() {
-        return validationErrors.size() < 1;
+        return validate().size() < 1;
     }
 
     @Override
