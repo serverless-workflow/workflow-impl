@@ -21,6 +21,8 @@ package org.serverless.workflow.impl;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.events.TriggerEvent;
@@ -35,12 +37,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExpressionEvaluationTest extends BaseWorkflowTest {
 
-    @Test
-    public void testEventStateJexlExpressions() {
+    @ParameterizedTest
+    @ValueSource(strings = {"expressions/eventstatestriggers-jexl.json", "expressions/eventstatestriggers-jexl.yml"})
+    public void testEventStateJexlExpressions(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("expressions/eventstatestriggers-jexl.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         assertNotNull(workflowManager.getWorkflowValidator());
 
@@ -107,11 +110,12 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
                      triggerEvents3.get(1).getName());
     }
 
-    @Test
-    public void testEventStateSpelExpressions() {
+    @ParameterizedTest
+    @ValueSource(strings = {"expressions/eventstatestriggers-spel.json", "expressions/eventstatestriggers-spel.yml"})
+    public void testEventStateSpelExpressions(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("expressions/eventstatestriggers-spel.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         workflowManager.setDefaultExpressionEvaluator("spel");
 
         assertTrue(workflowManager.getWorkflowValidator().isValid());

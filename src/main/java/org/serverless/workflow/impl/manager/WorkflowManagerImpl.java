@@ -22,11 +22,13 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.serverless.workflow.api.ExpressionEvaluator;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
-import org.serverless.workflow.api.mapper.WorkflowObjectMapper;
+import org.serverless.workflow.api.mapper.JsonObjectMapper;
+import org.serverless.workflow.api.mapper.YamlObjectMapper;
 import org.serverless.workflow.impl.expression.JexlExpressionEvaluatorImpl;
 import org.serverless.workflow.impl.validator.WorkflowValidatorImpl;
 import org.serverless.workflow.spi.ExpressionEvaluatorProvider;
@@ -37,12 +39,12 @@ import org.slf4j.LoggerFactory;
 public class WorkflowManagerImpl implements WorkflowManager {
 
     private Workflow workflow;
-    private String workflowJson;
     private Map<String, ExpressionEvaluator> expressionEvaluators;
     private ExpressionEvaluator defaultExpressionEvaluator = new JexlExpressionEvaluatorImpl();
     private WorkflowValidator workflowValidator;
     private WorkflowValidator defaultWorkflowValidator = new WorkflowValidatorImpl();
-    private WorkflowObjectMapper objectMapper = new WorkflowObjectMapper();
+    private JsonObjectMapper jsonObjectMapper = new JsonObjectMapper();
+    private YamlObjectMapper yamlObjectMapper = new YamlObjectMapper();
 
     private static Logger logger = LoggerFactory.getLogger(WorkflowManagerImpl.class);
 
@@ -72,9 +74,8 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
-    public void setJson(String workflowJson) {
-        this.workflowJson = workflowJson;
-        this.workflow = toWorkflow(workflowJson);
+    public void setMarkup(String workflowMarkup) {
+        this.workflow = toWorkflow(workflowMarkup);
     }
 
     @Override
@@ -109,18 +110,9 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
-    public JsonNode toJson() {
+    public String toJson() {
         try {
-            return objectMapper.readTree(workflowJson);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public String toJsonString() {
-        try {
-            return objectMapper.writeValueAsString(workflow);
+            return jsonObjectMapper.writeValueAsString(workflow);
         } catch (JsonProcessingException e) {
             logger.error("Error mapping to json: " + e.getMessage());
             return null;
@@ -128,15 +120,29 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
-    public Workflow toWorkflow(String json) {
+    public String toYaml() {
         try {
-            return objectMapper.readValue(json,
-                                          Workflow.class);
+            String jsonString = jsonObjectMapper.writeValueAsString(workflow);
+            JsonNode jsonNode = jsonObjectMapper.readTree(jsonString);
+            String yamlString = new YAMLMapper().writeValueAsString(jsonNode);
+            return yamlString;
         } catch (Exception e) {
-            logger.error("Error converting to workflow: " + e.getMessage());
+            logger.error("Error mapping to yaml: " + e.getMessage());
+            return null;
+        }
+    }
 
-            throw new IllegalArgumentException(e.getMessage());
-
+    @Override
+    public Workflow toWorkflow(String markup) {
+        // try it as json markup first, if fails try yaml
+        try {
+            return jsonObjectMapper.readValue(markup, Workflow.class);
+        } catch(Exception e) {
+            try {
+                return yamlObjectMapper.readValue(markup, Workflow.class);
+            } catch(Exception ee) {
+                throw new IllegalArgumentException("Could not convert markup to Workflow.");
+            }
         }
     }
 }

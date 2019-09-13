@@ -31,7 +31,9 @@ To use this project add the following dependencies into your project pom.xml:
 
 ### API Examples
 
-#### JSON To Object Model
+#### Workflow Model(JSON/YAML) To Object Model
+This project supports Workflow Model in both JSON and YAML formats.
+
 Given serverless workflow JSON which represents a workflow with a single Event State, for example:
 
 ```json
@@ -69,7 +71,7 @@ You can use this project to read it into the workflow api:
 
 ```java
 WorkflowManager manager = WorkflowManagerProvider.getInstance().get();
-manager.setJson(json);
+manager.setMarkup(json);
 
 Workflow workflow = manager.getWorkflow();
 
@@ -82,7 +84,32 @@ assertEquals("testFunction", action.getFunction());
 
 ```
 
-#### Object model to JSON
+Same workflow model can be represented with YAML, for example:
+
+```yaml
+name: "test-wf"
+states:
+- events:
+  - event-expression: "testEventExpression"
+    timeout: "testTimeout"
+    action-mode: "SEQUENTIAL"
+    actions:
+    - function:
+        name: "testFunction"
+      timeout: 5
+      retry:
+        match: "testMatch"
+        retry-interval: 2
+        max-retry: 10
+        next-state: "testNextRetryState"
+    next-state: "testNextState"
+  name: "test-state"
+  type: "EVENT"
+  start: true
+
+```
+
+#### Object model to Workflow Model(JSON/YAML)
 
 You can create the Workflow programatically, for example:
 
@@ -109,9 +136,8 @@ Workflow workflow = new Workflow().withStates(new ArrayList<State>() {{
 WorkflowManager manager = WorkflowManagerProvider.getInstance().get();
 manager.setWorkflow(workflow)
 
-String jsonString = manager.toJsonString();
+String json = manager.toJson();
 
-JsonNode jsonNode = manager.toJson();
 
 ```
 This will produce a workflow JSON with a single Switch State:
@@ -136,6 +162,33 @@ This will produce a workflow JSON with a single Switch State:
 }
 ```
 
+If we want to get Yaml:
+
+
+```java
+String yaml = manager.toYaml();
+
+```
+
+which would produce:
+
+```yaml
+name: "test-wf"
+states:
+- choices:
+  - and:
+    - path: "testpath"
+      value: "testvalue"
+      operator: "EQ"
+      next-state: "testnextstate"
+    next-state: "testnextstate"
+  default: "defaultteststate"
+  name: "test-state"
+  type: "SWITCH"
+  start: false
+
+```
+
 #### Workflow Validation
 This project provides an implementation of the Workflow Validator. 
 
@@ -152,7 +205,7 @@ we can get validation errors:
 
 ```java
     WorkflowManager manager = WorkflowManagerProvider.getInstance().get();
-    manager.setJson(json);
+    manager.setMarkup(json);
     
     WorkflowValidator validator = workflowManager.getWorkflowValidator();
     List<ValidationError> errors = validator.validate();
@@ -187,7 +240,7 @@ This will cause parsing exception:
  assertThrows(IllegalArgumentException.class,
                       () -> {
                           WorkflowManager workflowManager =  WorkflowManagerProvider.getInstance().get();
-                          workflowManager.setJson(json);
+                          workflowManager.setMarkup(json);
                       });
      
 ```
@@ -199,7 +252,7 @@ String validation is disabled by default, but you can enable it with:
 
 ```java
     WorkflowManager workflowManager = WorkflowManagerProvider.getInstance().get();
-    workflowManager.setJson(json);
+    workflowManager.setMarkup(json);
     WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
     workflowValidator.setStrictValidationEnabled(true);    
 ```

@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
@@ -44,12 +46,13 @@ import static org.serverless.workflow.impl.util.IsEqualJSON.equalToJSONInFile;
 
 public class WorkflowManagerTest extends BaseWorkflowTest {
 
-    @Test
-    public void testManagerFromJson() {
+    @ParameterizedTest
+    @ValueSource(strings = {"controller/eventstatewithtrigger.json", "controller/eventstatewithtrigger.yml"})
+    public void testManagerFromJson(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("controller/eventstatewithtrigger.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -183,7 +186,10 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
         assertEquals("test-state",
                      eventStateForTrigger.getName());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("controller/eventstatewithtrigger.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("controller/eventstatewithtrigger.yml")));
+
     }
 }

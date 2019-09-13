@@ -1,0 +1,7 @@
+---
+name: test-wf
+trigger-defs:
+- source: testsource
+  eventID: testeventid
+  correlation-token: testcorrelationtoken
+states: []
