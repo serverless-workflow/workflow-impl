@@ -5,9 +5,10 @@
 This project provides an implementation of the 
 Serverless Workflow Specification Version 0.1 (https://github.com/cncf/wg-serverless/blob/master/workflow/spec/spec.md)
 
-It provides two implementations for the serverless workflow api:
+It provides three implementations for the serverless workflow api:
 * WorkflowManagerImpl
 * WorkflowValidatorImpl
+* InitContextImpl
 
 as well as two implementations of workflow expression evaluators:
 * JexlExpressionEvaluatorImpl
@@ -314,5 +315,76 @@ Similarly if you use SpEL, you can do for example:
 "event-expression": "trigger != null && (trigger.equals('testtrigger') || trigger.equals('testtrigger2'))",
 ...
 ```
+
+#### Initializing workflow values from application.properties
+Often it is not best to hard-code all values into your serverless workflow markup
+but use values from some other sources. This impl allows you to pre-define properties 
+in application.properties file and then use then inside your workflow markup. 
+
+Let's say you have an application.properties in src/main/resources folder that looks like this:
+```
+workflow.name=test-wf
+workflow.trigger.name=test-trigger
+workflow.trigger.source=testsource
+workflow.trigger.eventid=testeventid
+workflow.trigger.correlationtoken=testcorrelationtoken
+workflow.state.type=EVENT
+workflow.state.name=test-state
+workflow.state.event.nextstate=testNextState
+workflow.state.event.eventexpression=trigger.equals('test-trigger')
+workflow.state.event.actionmode=SEQUENTIAL
+workflow.state.event.timeout=testTimeout
+workflow.state.event.action.function.name=testFunction
+workflow.state.event.action.retry.match=testMatch
+workflow.state.event.action.retry.retryinterval=2
+workflow.state.event.action.retry.nextstate=testNextRetryState
+```
+With this set up in your workflow json (same for yaml) you can use value substitutions. 
+
+```json
+{
+  "name": "workflow.name",
+  "trigger-defs": [
+    {
+      "name": "workflow.trigger.name",
+      "source": "workflow.trigger.source",
+      "eventID": "workflow.trigger.eventid",
+      "correlation-token": "workflow.trigger.correlationtoken"
+    }
+  ],
+  "states": [
+    {
+      "events": [
+        {
+          "event-expression": "workflow.state.event.eventexpression",
+          "timeout": "workflow.state.event.timeout",
+          "action-mode": "workflow.state.event.actionmode",
+          "actions": [
+            {
+              "function": {
+                "name": "workflow.state.event.action.function.name"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "workflow.state.event.action.retry.match",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "workflow.state.event.action.retry.nextstate"
+              }
+            }
+          ],
+          "next-state": "workflow.state.event.nextstate"
+        }
+      ],
+      "name": "workflow.state.name",
+      "type": "workflow.state.type",
+      "start": true
+    }
+  ]
+}
+```
+
+You can use this substitution for all string and enum values. Numbers and booleans support will 
+be added in the future.
 
 ### More to come soon!
