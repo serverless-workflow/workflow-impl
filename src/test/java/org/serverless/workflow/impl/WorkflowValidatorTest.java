@@ -21,6 +21,8 @@ package org.serverless.workflow.impl;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
 import org.serverless.workflow.api.validation.ValidationError;
@@ -35,7 +37,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
     public void testEmptyJson() {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson("{}");
+        workflowManager.setMarkup("{}");
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -45,12 +47,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                      validationErrorList.size());
     }
 
-    @Test
-    public void testNoData() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/emptyworkflow.json", "basic/emptyworkflow.yml"})
+    public void testNoData(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/emptyworkflow.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -66,12 +69,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testInvalidTriggerEvent() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidtrigger.json", "validation/invalidtrigger.yml"})
+    public void testInvalidTriggerEvent(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/invalidtrigger.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -93,11 +97,12 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testInvalidTriggerEventNotUniqueProperties() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidtriggerproperties.json", "validation/invalidtriggerproperties.yml"})
+    public void testInvalidTriggerEventNotUniqueProperties(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/invalidtriggerproperties.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -116,12 +121,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testMultipleStartStates() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/multiplestartstates.json", "validation/multiplestartstates.yml"})
+    public void testMultipleStartStates(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/multiplestartstates.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -134,12 +140,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testMultipleEndStatesInStrictMode() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/multipleendstates.json", "validation/multipleendstates.yml"})
+    public void testMultipleEndStatesInStrictMode(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/multipleendstates.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
         workflowValidator.setStrictValidationEnabled(true);
@@ -161,7 +168,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson("{}");
+        workflowManager.setMarkup("{}");
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
         workflowValidator.setEnabled(false);
@@ -172,12 +179,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                      validationErrorList.size());
     }
 
-    @Test
-    public void testSchemaValidationDisabled() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/emptyworkflow.json", "basic/emptyworkflow.yml"})
+    public void testSchemaValidationDisabled(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/emptyworkflow.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
         workflowValidator.setSchemaValidationEnabled(false);
@@ -193,12 +201,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testStrictValidationEnabled() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/emptyworkflow.json", "basic/emptyworkflow.yml"})
+    public void testStrictValidationEnabled(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/emptyworkflow.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
         workflowValidator.setSchemaValidationEnabled(false);
@@ -218,12 +227,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
-    public void testEmptyNextState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/emptynextstate.json", "validation/emptynextstate.yml"})
+    public void testEmptyNextState(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/emptynextstate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -237,12 +247,13 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/emptyname.json", "validation/emptyname.yml"})
     public void testEmptyName() {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/emptyname.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath("validation/emptyname.json")));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 
@@ -252,68 +263,74 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                      validationErrorList.size());
     }
 
-    @Test
-    public void testInvalidStateDefinition() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidstate.json", "validation/invalidstate.yml"})
+    public void testInvalidStateDefinition(String model) {
 
 
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();
                          assertNotNull(workflowManager);
-                         workflowManager.setJson(getFileContents(getResourcePath("validation/invalidstate.json")));
+                         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
                      });
     }
 
-    @Test
-    public void testInvalidStateType() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidstatetype.json", "validation/invalidstatetype.yml"})
+    public void testInvalidStateType(String model) {
 
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();
                          assertNotNull(workflowManager);
-                         workflowManager.setJson(getFileContents(getResourcePath("validation/invalidstatetype.json")));
+                         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
                      });
     }
 
-    @Test
-    public void testInvalidActionMode() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidactionmode.json", "validation/invalidactionmode.yml"})
+    public void testInvalidActionMode(String model) {
 
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();
                          assertNotNull(workflowManager);
-                         workflowManager.setJson(getFileContents(getResourcePath("validation/invalidactionmode.json")));
+                         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
                      });
     }
 
-    @Test
-    public void testInvalidOperator() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidoperator.json", "validation/invalidoperator.yml"})
+    public void testInvalidOperator(String model) {
 
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();
                          assertNotNull(workflowManager);
-                         workflowManager.setJson(getFileContents(getResourcePath("validation/invalidoperator.json")));
+                         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
                      });
     }
 
-    @Test
-    public void testInvalidStatus() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/invalidstatus.json", "validation/invalidstatus.yml"})
+    public void testInvalidStatus(String model) {
 
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();
                          assertNotNull(workflowManager);
-                         workflowManager.setJson(getFileContents(getResourcePath("validation/invalidstatus.json")));
+                         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
                      });
     }
 
-    @Test
-    public void testUniqueStateName() {
+    @ParameterizedTest
+    @ValueSource(strings = {"validation/duplicatedstateid.json", "validation/duplicatedstateid.yml"})
+    public void testUniqueStateName(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("validation/duplicatedstateid.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
         WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
         assertNotNull(workflowValidator);
 

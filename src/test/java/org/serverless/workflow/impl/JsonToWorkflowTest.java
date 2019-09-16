@@ -19,6 +19,8 @@
 package org.serverless.workflow.impl;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.actions.Action;
@@ -44,12 +46,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JsonToWorkflowTest extends BaseWorkflowTest {
 
-    @Test
-    public void testEmptyWorkflow() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/emptyworkflow.json", "basic/emptyworkflow.yml"})
+    public void testEmptyWorkflow(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/emptyworkflow.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
 
@@ -61,12 +64,13 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                    is(0));
     }
 
-    @Test
-    public void testSimpleWorkflowWithMetadata() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/workflowwithmetadata.json", "basic/workflowwithmetadata.yml"})
+    public void testSimpleWorkflowWithMetadata(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/workflowwithmetadata.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
 
@@ -86,11 +90,12 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      workflow.getMetadata().get("key2"));
     }
 
-    @Test
-    public void testTrigger() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singletriggerevent.json", "basic/singletriggerevent.yml"})
+    public void testTrigger(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singletriggerevent.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
 
@@ -111,12 +116,13 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      workflow.getTriggerDefs().get(0).getCorrelationToken());
     }
 
-    @Test
-    public void testEndState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleendstate.json", "basic/singleendstate.yml"})
+    public void testEndState(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleendstate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -137,11 +143,12 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      endState.getName());
     }
 
-    @Test
-    public void testEventState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleeventstate.json", "basic/singleeventstate.yml"})
+    public void testEventState(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleeventstate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -182,12 +189,13 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      event.getActions().get(0).getRetry().getMatch());
     }
 
-    @Test
-    public void testDelayState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singledelaystate.json", "basic/singledelaystate.yml"})
+    public void testDelayState(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singledelaystate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -207,12 +215,13 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      delayState.getType());
     }
 
-    @Test
-    public void testOperationState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleoperationstate.json", "basic/singleoperationstate.yml"})
+    public void testOperationState(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleoperationstate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -243,11 +252,12 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      action.getRetry().getMatch());
     }
 
-    @Test
-    public void testParallellState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleparallelstate.json", "basic/singleparallelstate.yml"})
+    public void testParallellState(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleparallelstate.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -300,11 +310,12 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      ((DelayState) branch2.getStates().get(0)).getTimeDelay());
     }
 
-    @Test
-    public void testSwitchState() {
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleswitchstateandchoice.json", "basic/singleswitchstateandchoice.yml"})
+    public void testSwitchStateAndChoice(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleswitchstateandchoice.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -328,16 +339,42 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                    is(1));
         assertTrue(switchState.getChoices().get(0) instanceof AndChoice);
 
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleswitchstatenotchoice.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath("basic/singleswitchstatenotchoice.json")));
         workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
         switchState = (SwitchState) workflow.getStates().get(0);
         assertTrue(switchState.getChoices().get(0) instanceof NotChoice);
 
-        workflowManager.setJson(getFileContents(getResourcePath("basic/singleswitchstateorchoice.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath("basic/singleswitchstateorchoice.json")));
         workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
         switchState = (SwitchState) workflow.getStates().get(0);
+        assertTrue(switchState.getChoices().get(0) instanceof OrChoice);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleswitchstatenotchoice.json", "basic/singleswitchstatenotchoice.yml"})
+    public void testSwitchStateNotChoice(String model) {
+        WorkflowManager workflowManager = getWorkflowManager();
+        assertNotNull(workflowManager);
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
+
+        Workflow workflow = workflowManager.getWorkflow();
+        assertNotNull(workflow);
+        SwitchState switchState = (SwitchState) workflow.getStates().get(0);
+        assertTrue(switchState.getChoices().get(0) instanceof NotChoice);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleswitchstateorchoice.json", "basic/singleswitchstateorchoice.yml"})
+    public void testSwitchStateOrChoice(String model) {
+        WorkflowManager workflowManager = getWorkflowManager();
+        assertNotNull(workflowManager);
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
+
+        Workflow workflow = workflowManager.getWorkflow();
+        assertNotNull(workflow);
+        SwitchState switchState = (SwitchState) workflow.getStates().get(0);
         assertTrue(switchState.getChoices().get(0) instanceof OrChoice);
     }
 }

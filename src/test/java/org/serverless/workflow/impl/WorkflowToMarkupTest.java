@@ -46,10 +46,11 @@ import org.serverless.workflow.api.states.ParallelState;
 import org.serverless.workflow.api.states.SwitchState;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.serverless.workflow.impl.util.IsEqualJSON.equalToJSONInFile;
 
-public class WorkflowToJsonTest extends BaseWorkflowTest {
+public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testEmptyWorkflow() {
@@ -59,8 +60,11 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/emptyworkflow.json")));
+
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/emptyworkflow.yml")));
     }
 
     @Test
@@ -78,10 +82,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/workflowwithmetadata.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/workflowwithmetadata.yml")));
     }
 
     @Test
@@ -97,10 +103,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singletriggerevent.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singletriggerevent.yml")));
     }
 
     @Test
@@ -114,10 +122,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleendstate.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleendstate.yml")));
     }
 
     @Test
@@ -143,10 +153,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleeventstate.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleeventstate.yml")));
     }
 
     @Test
@@ -159,10 +171,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singledelaystate.json")));
+
+       assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singledelaystate.yml")));
     }
 
     @Test
@@ -186,10 +200,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleoperationstate.json")));
+
+       assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleoperationstate.yml")));
     }
 
     @Test
@@ -221,10 +237,12 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleparallelstate.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleparallelstate.yml")));
     }
 
     @Test
@@ -252,9 +270,11 @@ public class WorkflowToJsonTest extends BaseWorkflowTest {
         assertNotNull(workflowManager);
         workflowManager.setWorkflow(workflow);
 
-        assertNotNull(workflowManager.toJsonString());
+        assertNotNull(workflowManager.toJson());
 
-        assertThat(workflowManager.toJsonString(),
+        assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleswitchstateandchoice.json")));
+
+        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleswitchstateandchoice.yml")));
     }
 }

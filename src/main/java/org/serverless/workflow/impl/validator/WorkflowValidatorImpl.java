@@ -68,9 +68,9 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
         validationErrors.clear();
         if (enabled) {
             try {
-                if (schemaValidationEnabled && workflowManager.toJsonString() != null) {
+                if (schemaValidationEnabled && workflowManager.toJson() != null) {
                     try {
-                        workflowSchema.validate(new JSONObject(workflowManager.toJsonString()));
+                        workflowSchema.validate(new JSONObject(workflowManager.toJson()));
                     } catch (ValidationException e) {
                         // main error
                         addValidationError(e.getMessage(),
