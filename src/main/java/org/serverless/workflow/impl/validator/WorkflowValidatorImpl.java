@@ -59,8 +59,9 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
     }
 
     @Override
-    public void setWorkflowManager(WorkflowManager workflowManager) {
+    public WorkflowValidator setWorkflowManager(WorkflowManager workflowManager) {
         this.workflowManager = workflowManager;
+        return this;
     }
 
     @Override
