@@ -74,8 +74,9 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
-    public void setMarkup(String workflowMarkup) {
+    public WorkflowManager setMarkup(String workflowMarkup) {
         this.workflow = toWorkflow(workflowMarkup);
+        return this;
     }
 
     @Override
