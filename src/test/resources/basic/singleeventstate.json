@@ -10,7 +10,8 @@
           "actions": [
             {
               "function": {
-                "name": "testFunction"
+                "name": "testFunction",
+                "type": "someType"
               },
               "timeout": 5,
               "retry": {

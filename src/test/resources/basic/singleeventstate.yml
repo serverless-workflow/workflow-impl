@@ -8,6 +8,7 @@ states:
     actions:
     - function:
         name: "testFunction"
+        type: "someType"
       timeout: 5
       retry:
         match: "testMatch"
