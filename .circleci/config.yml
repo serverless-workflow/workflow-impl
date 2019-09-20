@@ -22,6 +22,10 @@ jobs:
 
     steps:
       - checkout
+      - run: |
+          git clone https://github.com/serverless-workflow/workflow-api.git
+          cd workflow-api
+          mvn install -DskiptTests
 
       # Download and cache dependencies
       - restore_cache:
