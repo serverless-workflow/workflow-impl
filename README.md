@@ -1,5 +1,7 @@
 # Serverless Workflow Impl
 
+[![CircleCI](https://circleci.com/gh/serverless-workflow/workflow-impl.svg?style=svg)](https://circleci.com/gh/serverless-workflow/workflow-impl)
+
 This project provides an implementation of the 
 Serverless Workflow Specification Version 0.1 (https://github.com/cncf/wg-serverless/blob/master/workflow/spec/spec.md)
 
