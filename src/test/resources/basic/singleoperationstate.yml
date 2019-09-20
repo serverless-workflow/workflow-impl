@@ -5,6 +5,10 @@ states:
   actions:
   - function:
       name: "testFunction"
+      type: "someType"
+      parameters:
+        one: "1"
+        two: "2"
     timeout: 5
     retry:
       match: "testMatch"
