@@ -63,8 +63,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/emptyworkflow.json")));
 
-
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/emptyworkflow.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/emptyworkflow.yml")));
     }
 
     @Test
@@ -87,7 +87,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/workflowwithmetadata.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/workflowwithmetadata.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/workflowwithmetadata.yml")));
     }
 
     @Test
@@ -108,7 +109,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singletriggerevent.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singletriggerevent.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singletriggerevent.yml")));
     }
 
     @Test
@@ -127,7 +129,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleendstate.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleendstate.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singleendstate.yml")));
     }
 
     @Test
@@ -139,7 +142,14 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                                         .withActionMode(Event.ActionMode.SEQUENTIAL)
                                         .withNextState("testNextState")
                                         .withActions(Arrays.asList(
-                                                new Action().withFunction(new Function().withName("testFunction"))
+                                                new Action().withFunction(new Function()
+                                                                                  .withName("testFunction")
+                                                                                  .withType("testFunctionType")
+                                                                                  .withParameters(Stream.of(new Object[][]{
+                                                                                          {"testkey1", "testkeyvalue1"},
+                                                                                          {"testkey2", "testkeyvalue2"},
+                                                                                  }).collect(Collectors.toMap(data -> (String) data[0],
+                                                                                                              data -> (String) data[1]))))
                                                         .withTimeout(5)
                                                         .withRetry(new Retry().withMatch("testMatch").withMaxRetry(10)
                                                                            .withRetryInterval(2)
@@ -158,7 +168,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleeventstate.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleeventstate.yml")));
+       assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singleeventstate.yml")));
     }
 
     @Test
@@ -176,7 +187,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singledelaystate.json")));
 
-       assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singledelaystate.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singledelaystate.yml")));
     }
 
     @Test
@@ -205,7 +217,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleoperationstate.json")));
 
-       assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleoperationstate.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singleoperationstate.yml")));
     }
 
     @Test
@@ -242,7 +255,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleparallelstate.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleparallelstate.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singleparallelstate.yml")));
     }
 
     @Test
@@ -275,6 +289,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("basic/singleswitchstateandchoice.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("basic/singleswitchstateandchoice.yml")));
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("basic/singleswitchstateandchoice.yml")));
     }
 }

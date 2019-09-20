@@ -18,6 +18,8 @@
 
 package org.serverless.workflow.impl;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -183,6 +185,13 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      event.getActions().size());
         assertEquals("testFunction",
                      event.getActions().get(0).getFunction().getName());
+        assertEquals("testFunctionType",
+                     event.getActions().get(0).getFunction().getType());
+        Map<String, String> functionParams = event.getActions().get(0).getFunction().getParameters();
+        assertNotNull(functionParams);
+        assertEquals(2, functionParams.size());
+        assertEquals("testkeyvalue1", functionParams.get("testkey1"));
+        assertEquals("testkeyvalue2", functionParams.get("testkey2"));
         assertNotNull(event.getActions().get(0).getRetry());
 
         assertEquals("testMatch",

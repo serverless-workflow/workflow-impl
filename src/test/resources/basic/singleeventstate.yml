@@ -8,6 +8,10 @@ states:
     actions:
     - function:
         name: "testFunction"
+        type: "testFunctionType"
+        parameters:
+          testkey2: "testkeyvalue2"
+          testkey1: "testkeyvalue1"
       timeout: 5
       retry:
         match: "testMatch"

@@ -10,7 +10,12 @@
           "actions": [
             {
               "function": {
-                "name": "testFunction"
+                "name": "testFunction",
+                "type": "testFunctionType",
+                "parameters": {
+                  "testkey1": "testkeyvalue1",
+                  "testkey2": "testkeyvalue2"
+                }
               },
               "timeout": 5,
               "retry": {
