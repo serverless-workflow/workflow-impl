@@ -22,10 +22,6 @@ jobs:
 
     steps:
       - checkout
-      - run: |
-          git clone https://github.com/serverless-workflow/workflow-api.git
-          cd workflow-api
-          mvn install -DskiptTests
 
       # Download and cache dependencies
       - restore_cache:
@@ -35,7 +31,10 @@ jobs:
             - v1-dependencies-
 
       - run: mvn dependency:go-offline
-
+      - run: |
+          git clone https://github.com/serverless-workflow/workflow-api.git
+          cd workflow-api
+          mvn install -DskiptTests
       - save_cache:
           paths:
             - ~/.m2
