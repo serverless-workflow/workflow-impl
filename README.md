@@ -386,5 +386,3 @@ With this set up in your workflow json (same for yaml) you can use value substit
 
 You can use this substitution for all string and enum values. Numbers and booleans support will 
 be added in the future.
-
-### More to come soon!
