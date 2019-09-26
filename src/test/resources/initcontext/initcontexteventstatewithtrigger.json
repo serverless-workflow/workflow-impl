@@ -1,0 +1,40 @@
+{
+  "name": "workflow.name",
+  "trigger-defs": [
+    {
+      "name": "workflow.trigger.name",
+      "source": "workflow.trigger.source",
+      "eventID": "workflow.trigger.eventid",
+      "correlation-token": "workflow.trigger.correlationtoken"
+    }
+  ],
+  "states": [
+    {
+      "events": [
+        {
+          "event-expression": "workflow.state.event.eventexpression",
+          "timeout": "workflow.state.event.timeout",
+          "action-mode": "workflow.state.event.actionmode",
+          "actions": [
+            {
+              "function": {
+                "name": "workflow.state.event.action.function.name"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "workflow.state.event.action.retry.match",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "workflow.state.event.action.retry.nextstate"
+              }
+            }
+          ],
+          "next-state": "workflow.state.event.nextstate"
+        }
+      ],
+      "name": "workflow.state.name",
+      "type": "workflow.state.type",
+      "start": true
+    }
+  ]
+}
