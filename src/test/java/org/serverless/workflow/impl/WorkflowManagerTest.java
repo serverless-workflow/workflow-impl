@@ -48,7 +48,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"controller/eventstatewithtrigger.json", "controller/eventstatewithtrigger.yml"})
-    public void testManagerFromJson(String model) {
+    public void testManagerFromMarkup(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);

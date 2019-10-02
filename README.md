@@ -386,3 +386,76 @@ With this set up in your workflow json (same for yaml) you can use value substit
 
 You can use this substitution for all string and enum values. Numbers and booleans support will 
 be added in the future.
+
+#### Workflow Model Extensions
+You can extend the core workflow model with custom extensions. To do this add your custom extension via 
+WorkflowManager:
+
+```java
+WorkflowManager manager = WorkflowManagerProvider.getInstance().get();
+workflowManager.registerExtension("testextension", TestExtensionImpl.class);
+manager.setMarkup(json);
+...
+```
+
+Extension impls are POJOs that must implement the org.serverless.workflow.api.interfaces.Extension interface
+and add jackson annotations for properties.
+For the above example lets take a look at TestExtensionImpl:
+ 
+```java
+public class TestExtensionImpl implements Extension {
+
+    @JsonProperty("extensionid")
+    private String extensionId;
+
+    @JsonProperty("testparam1")
+    private String testparam1;
+
+    @JsonProperty("testparam2")
+    private String testparam2;
+
+    @JsonProperty("testparam3")
+    private Map<String, String> testparam3;
+
+    @Override
+    public String getExtensionId() {
+        return extensionId;
+    }
+    
+    // rest of getters + setters
+    
+}
+```
+
+And you can add your extension in workflow JSON, for example:
+
+```json
+{
+  "name": "test-wf",
+  "states": [],
+  "extensions": [
+    {
+      "extensionid": "testextension",
+      "testparam1": "testvalue1",
+      "testparam2": "testvalue2",
+      "testparam3": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  ]
+}
+```
+You can get your custom extension with simple api:
+
+```java
+WorkflowManager manager = WorkflowManagerProvider.getInstance().get();
+workflowManager.registerExtension("testextension", TestExtensionImpl.class);
+manager.setMarkup(json);
+
+...
+
+TestExtensionImpl testExtension = (TestExtensionImpl) workflow.getExtensions().get(0);
+assertEquals("testextension", testExtension.getExtensionId());
+...
+```

@@ -1,0 +1,15 @@
+{
+  "name": "test-wf",
+  "states": [],
+  "extensions": [
+    {
+      "extensionid": "testextension",
+      "testparam1": "testvalue1",
+      "testparam2": "testvalue2",
+      "testparam3": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  ]
+}
