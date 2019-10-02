@@ -294,6 +294,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      ((OperationState) branch1.getStates().get(0)).getActions().size());
         assertEquals("testFunction",
                      ((OperationState) branch1.getStates().get(0)).getActions().get(0).getFunction().getName());
+        assertFalse(branch1.isWaitForCompletion());
 
         Branch branch2 = parallelState.getBranches().get(1);
         assertEquals("secondtestbranch",
@@ -308,6 +309,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      ((DelayState) branch2.getStates().get(0)).getNextState());
         assertEquals(5,
                      ((DelayState) branch2.getStates().get(0)).getTimeDelay());
+        assertTrue(branch2.isWaitForCompletion());
     }
 
     @ParameterizedTest

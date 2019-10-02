@@ -19,6 +19,7 @@ states:
       name: "operationstate"
       type: "OPERATION"
       start: true
+    wait-for-completion: false
   - name: "secondtestbranch"
     states:
     - time-delay: 5
@@ -26,6 +27,7 @@ states:
       name: "delaystate"
       type: "DELAY"
       start: false
+    wait-for-completion: true
   next-state: "testnextstate"
   name: "test-state"
   type: "PARALLEL"
