@@ -27,6 +27,7 @@ import org.serverless.workflow.api.ExpressionEvaluator;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
+import org.serverless.workflow.api.interfaces.Extension;
 import org.serverless.workflow.api.mapper.JsonObjectMapper;
 import org.serverless.workflow.api.mapper.YamlObjectMapper;
 import org.serverless.workflow.impl.expression.JexlExpressionEvaluatorImpl;
@@ -155,5 +156,15 @@ public class WorkflowManagerImpl implements WorkflowManager {
                 throw new IllegalArgumentException("Could not convert markup to Workflow.");
             }
         }
+    }
+
+    @Override
+    public void registerExtension(String extensionId,
+                                  Class<? extends Extension> extensionClass) {
+        jsonObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId, extensionClass);
+        jsonObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId, extensionClass);
+
+        yamlObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId, extensionClass);
+        yamlObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId, extensionClass);
     }
 }
