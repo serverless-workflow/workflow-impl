@@ -28,7 +28,8 @@
               "type": "OPERATION",
               "start": true
             }
-          ]
+          ],
+          "wait-for-completion": false
         },
         {
           "name": "secondtestbranch",
@@ -40,7 +41,8 @@
               "type": "DELAY",
               "start": false
             }
-          ]
+          ],
+          "wait-for-completion": true
         }
       ],
       "next-state": "testnextstate",

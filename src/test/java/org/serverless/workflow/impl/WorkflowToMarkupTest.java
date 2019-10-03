@@ -236,7 +236,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                             new ArrayList<State>() {{
                                 add(new DelayState().withName("delaystate").withStart(false).withNextState("testNextState").withTimeDelay(5));
                             }}
-                        )
+                        ).withWaitForCompletion(true)
                     )));
         }});
 
