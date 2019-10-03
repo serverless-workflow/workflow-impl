@@ -39,6 +39,7 @@ public class BaseWorkflowTest {
     private String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
     public WorkflowManager getWorkflowManager() {
+
         return WorkflowManagerProvider.getInstance().get();
     }
 

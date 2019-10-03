@@ -19,6 +19,7 @@
 package org.serverless.workflow.impl.expression;
 
 import org.serverless.workflow.api.ExpressionEvaluator;
+import org.serverless.workflow.api.events.TriggerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -38,34 +39,17 @@ public class SpelExpressionEvaluatorImpl implements ExpressionEvaluator {
 
     @Override
     public boolean evaluate(String expression,
-                            String triggerName) {
+                            TriggerEvent triggerEvent) {
         try {
             ExpressionParser spelExpressionParser = new SpelExpressionParser();
             Expression spelExpression = spelExpressionParser.parseExpression(expression);
 
-            EvaluationContext context = new StandardEvaluationContext(new SpelRootObject(triggerName));
+            EvaluationContext context = new StandardEvaluationContext(triggerEvent);
 
             return (Boolean) spelExpression.getValue(context);
         } catch (Exception e) {
             logger.error("Unable to evaluate expression: " + expression + " with error: " + e.getMessage());
             return false;
-        }
-    }
-
-    private class SpelRootObject {
-
-        private String trigger;
-
-        public SpelRootObject(String trigger) {
-            this.trigger = trigger;
-        }
-
-        public String getTrigger() {
-            return trigger;
-        }
-
-        public void setTrigger(String trigger) {
-            this.trigger = trigger;
         }
     }
 }

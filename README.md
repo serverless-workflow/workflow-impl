@@ -297,9 +297,9 @@ Here are two simple examples:
 
 ```json
 ...
-"event-expression": "trigger.equals('testtrigger')"
+"event-expression": "name eq 'testtrigger'"
 ...
-"event-expression": "trigger.equals('testtrigger') or trigger.equals('testtrigger2')",
+"event-expression": "name eq 'testtrigger' or name eq 'testtrigger2'",
 ...
 ```
 
@@ -310,9 +310,9 @@ Similarly if you use SpEL, you can do for example:
 
 ```json
 ...
-"event-expression": "trigger != null && trigger.equals('testtrigger')",
+"event-expression": "name eq 'testtrigger'",
 ...
-"event-expression": "trigger != null && (trigger.equals('testtrigger') || trigger.equals('testtrigger2'))",
+"event-expression": "name eq 'testtrigger' or name eq 'testtrigger2'",
 ...
 ```
 
@@ -331,7 +331,7 @@ workflow.trigger.correlationtoken=testcorrelationtoken
 workflow.state.type=EVENT
 workflow.state.name=test-state
 workflow.state.event.nextstate=testNextState
-workflow.state.event.eventexpression=trigger.equals('test-trigger')
+workflow.state.event.eventexpression=name eq 'test-trigger'
 workflow.state.event.actionmode=SEQUENTIAL
 workflow.state.event.timeout=testTimeout
 workflow.state.event.action.function.name=testFunction

@@ -15,7 +15,7 @@ trigger-defs:
 states:
 - name: test-state-1
   events:
-  - event-expression: trigger.equals('test-trigger-1')
+  - event-expression: name eq 'test-trigger-1'
     timeout: testTimeout
     action-mode: SEQUENTIAL
     actions:
@@ -32,7 +32,7 @@ states:
   start: true
 - name: test-state-2
   events:
-  - event-expression: trigger.equals('test-trigger-1') or trigger.equals('test-trigger-2')
+  - event-expression: name eq 'test-trigger-1' or name eq 'test-trigger-2'
     timeout: testTimeout
     action-mode: SEQUENTIAL
     actions:

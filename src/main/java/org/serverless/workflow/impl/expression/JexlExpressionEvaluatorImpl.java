@@ -23,7 +23,9 @@ import org.apache.commons.jexl3.JexlContext;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlExpression;
 import org.apache.commons.jexl3.MapContext;
+import org.apache.commons.jexl3.ObjectContext;
 import org.serverless.workflow.api.ExpressionEvaluator;
+import org.serverless.workflow.api.events.TriggerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,13 +42,11 @@ public class JexlExpressionEvaluatorImpl implements ExpressionEvaluator {
 
     @Override
     public boolean evaluate(String expression,
-                            String triggerName) {
+                            TriggerEvent triggerEvent) {
         try {
             JexlExpression e = jexl.createExpression(expression);
 
-            JexlContext jc = new MapContext();
-            jc.set("trigger",
-                   triggerName);
+            JexlContext jc = new ObjectContext<>(jexl, triggerEvent);
 
             return (Boolean) e.evaluate(jc);
         } catch (Exception e) {

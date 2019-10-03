@@ -73,7 +73,7 @@ public class WorkflowUtils {
                 List<Event> triggeredEvents = eventState.getEvents().stream()
                         .filter(event -> workflowManager.getExpressionEvaluator()
                                 .evaluate(event.getEventExpression(),
-                                          triggerEvent.getName())).collect(Collectors.toList());
+                                          triggerEvent)).collect(Collectors.toList());
                 if (triggeredEvents != null && !triggeredEvents.isEmpty()) {
                     triggerStates.add(eventState);
                 }
@@ -91,7 +91,7 @@ public class WorkflowUtils {
             List<Event> triggeredEvents = eventState.getEvents().stream()
                     .filter(event -> workflowManager.getExpressionEvaluator()
                             .evaluate(event.getEventExpression(),
-                                      triggerEvent.getName())).collect(Collectors.toList());
+                                      triggerEvent)).collect(Collectors.toList());
 
             if (triggeredEvents != null && !triggeredEvents.isEmpty()) {
                 eventStateTriggers.add(triggerEvent);
@@ -110,7 +110,7 @@ public class WorkflowUtils {
                     List<Event> triggeredEvents = eventState.getEvents().stream()
                             .filter(event -> workflowManager.getExpressionEvaluator()
                                     .evaluate(event.getEventExpression(),
-                                              triggerEvent.getName())).collect(Collectors.toList());
+                                              triggerEvent)).collect(Collectors.toList());
                     if (triggeredEvents != null && !triggeredEvents.isEmpty()) {
                         associatedTriggersMap.put(triggerEvent.getName(),
                                                   triggerEvent);
