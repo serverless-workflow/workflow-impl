@@ -4,7 +4,7 @@
     {
       "name": "workflow.trigger.name",
       "source": "workflow.trigger.source",
-      "eventID": "workflow.trigger.eventid",
+      "type": "workflow.trigger.eventtype",
       "correlation-token": "workflow.trigger.correlationtoken"
     }
   ],

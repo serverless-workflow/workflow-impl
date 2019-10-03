@@ -3,10 +3,10 @@ name: test-wf
 trigger-defs:
 - name: testtriggerevent
   source: testsource
-  eventID: testeventid
+  type: testeventtype
   correlation-token: testcorrelationtoken
 - name: testtriggerevent
   source: testsource
-  eventID: testeventid
+  type: testeventtype
   correlation-token: testcorrelationtoken
 states: []

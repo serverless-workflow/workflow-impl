@@ -179,8 +179,8 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                             } else {
                                 validation.addEvent(triggerEvent.getName());
                             }
-                            if (triggerEvent.getEventID() == null || triggerEvent.getEventID().isEmpty()) {
-                                addValidationError("Trigger Event has no event id",
+                            if (triggerEvent.getType() == null || triggerEvent.getType().isEmpty()) {
+                                addValidationError("Trigger Event has no type",
                                                    ValidationError.WORKFLOW_VALIDATION);
                             }
                         });

@@ -3,7 +3,7 @@
   "trigger-defs" : [ {
     "name" : "test-trigger",
     "source" : "testsource",
-    "eventID" : "testeventid",
+    "type" : "testeventtype",
     "correlation-token" : "testcorrelationtoken"
   } ],
   "states" : [ {
