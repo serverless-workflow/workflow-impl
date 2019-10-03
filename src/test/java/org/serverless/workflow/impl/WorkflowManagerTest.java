@@ -114,7 +114,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
         Workflow workflow = new Workflow().withName("test-wf")
                 .withTriggerDefs(
                         Arrays.asList(
-                                new TriggerEvent().withName("test-trigger").withEventID("testeventid")
+                                new TriggerEvent().withName("test-trigger").withType("testeventtype")
                                         .withCorrelationToken("testcorrelationtoken").withSource("testsource")
                         )
                 )

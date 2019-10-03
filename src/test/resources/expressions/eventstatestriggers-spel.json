@@ -4,19 +4,19 @@
     {
       "name": "test-trigger-1",
       "source": "testsource",
-      "eventID": "testeventid",
+      "type": "testeventtype",
       "correlation-token": "testcorrelationtoken"
     },
     {
       "name": "test-trigger-2",
       "source": "testsource2",
-      "eventID": "testeventid2",
+      "type": "testeventtype2",
       "correlation-token": "testcorrelationtoken2"
     },
     {
       "name": "test-trigger-3",
       "source": "testsource3",
-      "eventID": "testeventid3",
+      "type": "testeventtype3",
       "correlation-token": "testcorrelationtoken3"
     }
   ],

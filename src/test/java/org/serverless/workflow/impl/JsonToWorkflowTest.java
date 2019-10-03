@@ -110,8 +110,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      workflow.getTriggerDefs().get(0).getName());
         assertEquals("testsource",
                      workflow.getTriggerDefs().get(0).getSource());
-        assertEquals("testeventid",
-                     workflow.getTriggerDefs().get(0).getEventID());
+        assertEquals("testeventtype",
+                     workflow.getTriggerDefs().get(0).getType());
         assertEquals("testcorrelationtoken",
                      workflow.getTriggerDefs().get(0).getCorrelationToken());
     }

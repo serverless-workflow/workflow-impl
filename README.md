@@ -326,7 +326,7 @@ Let's say you have an application.properties in src/main/resources folder that l
 workflow.name=test-wf
 workflow.trigger.name=test-trigger
 workflow.trigger.source=testsource
-workflow.trigger.eventid=testeventid
+workflow.trigger.type=testtype
 workflow.trigger.correlationtoken=testcorrelationtoken
 workflow.state.type=EVENT
 workflow.state.name=test-state
@@ -348,7 +348,7 @@ With this set up in your workflow json (same for yaml) you can use value substit
     {
       "name": "workflow.trigger.name",
       "source": "workflow.trigger.source",
-      "eventID": "workflow.trigger.eventid",
+      "type": "workflow.trigger.type",
       "correlation-token": "workflow.trigger.correlationtoken"
     }
   ],
