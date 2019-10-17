@@ -74,6 +74,141 @@
       ],
       "type": "EVENT",
       "start": false
+    },
+    {
+      "name": "test-state-3",
+      "events": [
+        {
+          "event-expression": "source eq 'testsource' and type eq 'testeventtype'",
+          "timeout": "testTimeout",
+          "action-mode": "SEQUENTIAL",
+          "actions": [
+            {
+              "function": {
+                "name": "testFunction"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "testMatch",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "testNextRetryState"
+              }
+            }
+          ],
+          "next-state": "testNextState"
+        }
+      ],
+      "type": "EVENT",
+      "start": false
+    },
+    {
+      "name": "test-state-4",
+      "events": [
+        {
+          "event-expression": "name eq 'test-trigger-1' or name eq 'test-trigger-2'",
+          "timeout": "testTimeout",
+          "action-mode": "SEQUENTIAL",
+          "actions": [
+            {
+              "function": {
+                "name": "testFunction"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "testMatch",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "testNextRetryState"
+              }
+            }
+          ],
+          "next-state": "testNextState"
+        }
+      ],
+      "type": "EVENT",
+      "start": false
+    },
+    {
+      "name": "test-state-5",
+      "events": [
+        {
+          "event-expression": "name ne 'test-trigger-1' and name ne 'test-trigger-2'",
+          "timeout": "testTimeout",
+          "action-mode": "SEQUENTIAL",
+          "actions": [
+            {
+              "function": {
+                "name": "testFunction"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "testMatch",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "testNextRetryState"
+              }
+            }
+          ],
+          "next-state": "testNextState"
+        }
+      ],
+      "type": "EVENT",
+      "start": false
+    },
+    {
+      "name": "test-state-6",
+      "events": [
+        {
+          "event-expression": "correlationToken == null",
+          "timeout": "testTimeout",
+          "action-mode": "SEQUENTIAL",
+          "actions": [
+            {
+              "function": {
+                "name": "testFunction"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "testMatch",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "testNextRetryState"
+              }
+            }
+          ],
+          "next-state": "testNextState"
+        }
+      ],
+      "type": "EVENT",
+      "start": false
+    },
+    {
+      "name": "test-state-7",
+      "events": [
+        {
+          "event-expression": "correlationToken != null",
+          "timeout": "testTimeout",
+          "action-mode": "SEQUENTIAL",
+          "actions": [
+            {
+              "function": {
+                "name": "testFunction"
+              },
+              "timeout": 5,
+              "retry": {
+                "match": "testMatch",
+                "retry-interval": 2,
+                "max-retry": 10,
+                "next-state": "testNextRetryState"
+              }
+            }
+          ],
+          "next-state": "testNextState"
+        }
+      ],
+      "type": "EVENT",
+      "start": false
     }
   ]
 }
