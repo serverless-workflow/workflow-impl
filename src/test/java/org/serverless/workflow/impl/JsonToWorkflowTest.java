@@ -28,6 +28,7 @@ import org.serverless.workflow.api.branches.Branch;
 import org.serverless.workflow.api.choices.AndChoice;
 import org.serverless.workflow.api.choices.NotChoice;
 import org.serverless.workflow.api.choices.OrChoice;
+import org.serverless.workflow.api.choices.SingleChoice;
 import org.serverless.workflow.api.events.Event;
 import org.serverless.workflow.api.states.DefaultState;
 import org.serverless.workflow.api.states.DelayState;
@@ -378,5 +379,18 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         assertNotNull(workflow);
         SwitchState switchState = (SwitchState) workflow.getStates().get(0);
         assertTrue(switchState.getChoices().get(0) instanceof OrChoice);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleswitchstatesinglechoice.json", "basic/singleswitchstatesinglechoice.yml"})
+    public void testSwitchStateSingleChoice(String model) {
+        WorkflowManager workflowManager = getWorkflowManager();
+        assertNotNull(workflowManager);
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
+
+        Workflow workflow = workflowManager.getWorkflow();
+        assertNotNull(workflow);
+        SwitchState switchState = (SwitchState) workflow.getStates().get(0);
+        assertTrue(switchState.getChoices().get(0) instanceof SingleChoice);
     }
 }
