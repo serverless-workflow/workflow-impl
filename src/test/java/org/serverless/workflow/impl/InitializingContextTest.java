@@ -73,7 +73,7 @@ public class InitializingContextTest extends BaseWorkflowTest {
         Event event = eventState.getEvents().get(0);
         assertEquals("testNextState",
                      event.getNextState());
-        assertEquals("trigger.equals('test-trigger')",
+        assertEquals("name eq 'test-trigger'",
                      event.getEventExpression());
         assertEquals("testTimeout",
                      event.getTimeout());
@@ -123,7 +123,7 @@ public class InitializingContextTest extends BaseWorkflowTest {
         EventState eventStateForTrigger = eventStatesForTrigger.get(0);
         assertEquals("test-state",
                      eventStateForTrigger.getName());
-        
+
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("initcontext/initcontexteventstatewithtriggervaluesresolved.json")));
     }
@@ -161,7 +161,7 @@ public class InitializingContextTest extends BaseWorkflowTest {
         Event event = eventState.getEvents().get(0);
         assertEquals("testNextState",
                      event.getNextState());
-        assertEquals("trigger.equals('test-trigger')",
+        assertEquals("name eq 'test-trigger'",
                      event.getEventExpression());
         assertEquals("testTimeout",
                      event.getTimeout());

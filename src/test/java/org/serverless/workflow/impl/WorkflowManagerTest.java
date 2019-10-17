@@ -121,7 +121,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
                 .withStates(new ArrayList<State>() {{
                     add(new EventState().withStart(true).withName("test-state").withType(EventState.Type.EVENT)
                                 .withEvents(Arrays.asList(
-                                        new Event().withEventExpression("trigger.equals('test-trigger')").withTimeout("testTimeout")
+                                        new Event().withEventExpression("name eq 'test-trigger'").withTimeout("testTimeout")
                                                 .withActionMode(Event.ActionMode.SEQUENTIAL)
                                                 .withNextState("testNextState")
                                                 .withActions(Arrays.asList(

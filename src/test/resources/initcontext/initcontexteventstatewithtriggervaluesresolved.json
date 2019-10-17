@@ -8,7 +8,7 @@
   } ],
   "states" : [ {
     "events" : [ {
-      "event-expression" : "trigger.equals('test-trigger')",
+      "event-expression" : "name eq 'test-trigger'",
       "timeout" : "testTimeout",
       "action-mode" : "SEQUENTIAL",
       "actions" : [ {

@@ -123,6 +123,11 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
+    public void resetExpressionValidator() {
+        this.defaultExpressionEvaluator = new JexlExpressionEvaluatorImpl();
+    }
+
+    @Override
     public String toJson() {
         try {
             return jsonObjectMapper.writeValueAsString(workflow);
