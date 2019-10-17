@@ -158,7 +158,7 @@ public class WorkflowManagerImpl implements WorkflowManager {
             try {
                 return yamlObjectMapper.readValue(markup, Workflow.class);
             } catch(Exception ee) {
-                throw new IllegalArgumentException("Could not convert markup to Workflow.");
+                throw new IllegalArgumentException("Could not convert markup to Workflow: " + ee.getMessage());
             }
         }
     }
