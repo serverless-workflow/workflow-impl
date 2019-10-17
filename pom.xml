@@ -126,9 +126,6 @@
     <profiles>
         <profile>
             <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>${project.groupId}</groupId>
@@ -138,11 +135,10 @@
             </dependencies>
         </profile>
         <profile>
+            <!-- Default to allow other dependencies use this one -->
             <id>ci</id>
             <activation>
-                <property>
-                    <name>env.CI</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>
