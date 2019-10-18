@@ -33,6 +33,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExpressionEvaluationTest extends BaseWorkflowTest {
@@ -59,39 +60,64 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
                    is(3));
 
         assertThat(workflow.getStates().size(),
-                   is(2));
+                   is(7));
 
         List<EventState> eventStatesForTrigger1 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-1"),
                                                                                               workflowManager);
         assertNotNull(eventStatesForTrigger1);
-        assertEquals(2,
+        assertEquals(5,
                      eventStatesForTrigger1.size());
-        EventState eventStateForTrigger1 = eventStatesForTrigger1.get(0);
+        EventState eventStateForTrigger11 = eventStatesForTrigger1.get(0);
         assertEquals("test-state-1",
-                     eventStateForTrigger1.getName());
-        EventState eventStateForTrigger2 = eventStatesForTrigger1.get(1);
+                     eventStateForTrigger11.getName());
+        EventState eventStateForTrigger12 = eventStatesForTrigger1.get(1);
         assertEquals("test-state-2",
-                     eventStateForTrigger2.getName());
+                     eventStateForTrigger12.getName());
+        EventState eventStateForTrigger13 = eventStatesForTrigger1.get(2);
+        assertEquals("test-state-3",
+                     eventStateForTrigger13.getName());
+        EventState eventStateForTrigger14 = eventStatesForTrigger1.get(3);
+        assertEquals("test-state-4",
+                     eventStateForTrigger14.getName());
+        EventState eventStateForTrigger15 = eventStatesForTrigger1.get(4);
+        assertEquals("test-state-7",
+                     eventStateForTrigger15.getName());
 
         List<EventState> eventStatesForTrigger2 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-2"),
                                                                                               workflowManager);
         assertNotNull(eventStatesForTrigger2);
-        assertEquals(1,
+        assertEquals(3,
                      eventStatesForTrigger2.size());
-        EventState eventStateForTrigger3 = eventStatesForTrigger2.get(0);
+        EventState eventStateForTrigger21 = eventStatesForTrigger2.get(0);
         assertEquals("test-state-2",
-                     eventStateForTrigger3.getName());
+                     eventStateForTrigger21.getName());
+        EventState eventStateForTrigger22 = eventStatesForTrigger2.get(1);
+        assertEquals("test-state-4",
+                     eventStateForTrigger22.getName());
+        EventState eventStateForTrigger23 = eventStatesForTrigger2.get(2);
+        assertEquals("test-state-7",
+                     eventStateForTrigger23.getName());
 
-        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"),
-                                                                                        workflowManager);
+        List<EventState> eventStatesForTrigger3 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-3"),
+                                                                                              workflowManager);
+        assertNotNull(eventStatesForTrigger3);
+        assertEquals(2,
+                     eventStatesForTrigger3.size());
+        EventState eventStateForTrigger31 = eventStatesForTrigger3.get(0);
+        assertEquals("test-state-5",
+                     eventStateForTrigger31.getName());
+        EventState eventStateForTrigger32 = eventStatesForTrigger3.get(1);
+        assertEquals("test-state-7",
+                     eventStateForTrigger32.getName());
+
+        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"), workflowManager);
         assertNotNull(triggerEvents1);
         assertThat(triggerEvents1.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents1.get(0).getName());
 
-        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"),
-                                                                                        workflowManager);
+        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"), workflowManager);
         assertNotNull(triggerEvents2);
         assertThat(triggerEvents2.size(),
                    is(2));
@@ -100,14 +126,49 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents2.get(1).getName());
 
-        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getAllTriggerEventsAssociatedWithEventStates(workflowManager);
+        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"), workflowManager);
         assertNotNull(triggerEvents3);
-        assertEquals(2,
-                     triggerEvents3.size());
+        assertThat(triggerEvents3.size(),
+                   is(1));
         assertEquals("test-trigger-1",
                      triggerEvents3.get(0).getName());
+
+        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"), workflowManager);
+        assertNotNull(triggerEvents4);
+        assertThat(triggerEvents4.size(),
+                   is(2));
+        assertEquals("test-trigger-1",
+                     triggerEvents4.get(0).getName());
         assertEquals("test-trigger-2",
-                     triggerEvents3.get(1).getName());
+                     triggerEvents4.get(1).getName());
+
+        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"), workflowManager);
+        assertNotNull(triggerEvents5);
+        assertThat(triggerEvents5.size(),
+                   is(1));
+        assertEquals("test-trigger-3",
+                     triggerEvents5.get(0).getName());
+
+        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"), workflowManager);
+        assertNotNull(triggerEvents6);
+        assertThat(triggerEvents6.size(),
+                   is(0));
+
+        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"), workflowManager);
+        assertNotNull(triggerEvents7);
+        assertThat(triggerEvents7.size(),
+                   is(3));
+        assertEquals("test-trigger-1",
+                     triggerEvents7.get(0).getName());
+        assertEquals("test-trigger-2",
+                     triggerEvents7.get(1).getName());
+        assertEquals("test-trigger-3",
+                     triggerEvents7.get(2).getName());
+
+        List<TriggerEvent> triggerEventsAll = WorkflowUtils.getAllTriggerEventsAssociatedWithEventStates(workflowManager);
+        assertNotNull(triggerEventsAll);
+        assertEquals(3,
+                     triggerEventsAll.size());
     }
 
     @ParameterizedTest
@@ -124,44 +185,70 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertTrue(WorkflowUtils.haveStates(workflowManager));
 
         Workflow workflow = workflowManager.getWorkflow();
+        assertNotNull(workflow);
 
         assertThat(workflow.getTriggerDefs().size(),
                    is(3));
 
         assertThat(workflow.getStates().size(),
-                   is(2));
+                   is(7));
 
         List<EventState> eventStatesForTrigger1 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-1"),
                                                                                               workflowManager);
         assertNotNull(eventStatesForTrigger1);
-        assertEquals(2,
+        assertEquals(5,
                      eventStatesForTrigger1.size());
-        EventState eventStateForTrigger1 = eventStatesForTrigger1.get(0);
+        EventState eventStateForTrigger11 = eventStatesForTrigger1.get(0);
         assertEquals("test-state-1",
-                     eventStateForTrigger1.getName());
-        EventState eventStateForTrigger2 = eventStatesForTrigger1.get(1);
+                     eventStateForTrigger11.getName());
+        EventState eventStateForTrigger12 = eventStatesForTrigger1.get(1);
         assertEquals("test-state-2",
-                     eventStateForTrigger2.getName());
+                     eventStateForTrigger12.getName());
+        EventState eventStateForTrigger13 = eventStatesForTrigger1.get(2);
+        assertEquals("test-state-3",
+                     eventStateForTrigger13.getName());
+        EventState eventStateForTrigger14 = eventStatesForTrigger1.get(3);
+        assertEquals("test-state-4",
+                     eventStateForTrigger14.getName());
+        EventState eventStateForTrigger15 = eventStatesForTrigger1.get(4);
+        assertEquals("test-state-7",
+                     eventStateForTrigger15.getName());
 
         List<EventState> eventStatesForTrigger2 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-2"),
                                                                                               workflowManager);
         assertNotNull(eventStatesForTrigger2);
-        assertEquals(1,
+        assertEquals(3,
                      eventStatesForTrigger2.size());
-        EventState eventStateForTrigger3 = eventStatesForTrigger2.get(0);
+        EventState eventStateForTrigger21 = eventStatesForTrigger2.get(0);
         assertEquals("test-state-2",
-                     eventStateForTrigger3.getName());
+                     eventStateForTrigger21.getName());
+        EventState eventStateForTrigger22 = eventStatesForTrigger2.get(1);
+        assertEquals("test-state-4",
+                     eventStateForTrigger22.getName());
+        EventState eventStateForTrigger23 = eventStatesForTrigger2.get(2);
+        assertEquals("test-state-7",
+                     eventStateForTrigger23.getName());
 
-        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"),
-                                                                                        workflowManager);
+        List<EventState> eventStatesForTrigger3 = WorkflowUtils.getEventStatesForTriggerEvent(WorkflowUtils.getUniqueTriggerEvents(workflowManager).get("test-trigger-3"),
+                                                                                              workflowManager);
+        assertNotNull(eventStatesForTrigger3);
+        assertEquals(2,
+                     eventStatesForTrigger3.size());
+        EventState eventStateForTrigger31 = eventStatesForTrigger3.get(0);
+        assertEquals("test-state-5",
+                     eventStateForTrigger31.getName());
+        EventState eventStateForTrigger32 = eventStatesForTrigger3.get(1);
+        assertEquals("test-state-7",
+                     eventStateForTrigger32.getName());
+
+        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"), workflowManager);
         assertNotNull(triggerEvents1);
         assertThat(triggerEvents1.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents1.get(0).getName());
 
-        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"),
-                                                                                        workflowManager);
+        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"), workflowManager);
         assertNotNull(triggerEvents2);
         assertThat(triggerEvents2.size(),
                    is(2));
@@ -170,13 +257,48 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents2.get(1).getName());
 
-        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getAllTriggerEventsAssociatedWithEventStates(workflowManager);
+        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"), workflowManager);
         assertNotNull(triggerEvents3);
-        assertEquals(2,
-                     triggerEvents3.size());
+        assertThat(triggerEvents3.size(),
+                   is(1));
         assertEquals("test-trigger-1",
                      triggerEvents3.get(0).getName());
+
+        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"), workflowManager);
+        assertNotNull(triggerEvents4);
+        assertThat(triggerEvents4.size(),
+                   is(2));
+        assertEquals("test-trigger-1",
+                     triggerEvents4.get(0).getName());
         assertEquals("test-trigger-2",
-                     triggerEvents3.get(1).getName());
+                     triggerEvents4.get(1).getName());
+
+        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"), workflowManager);
+        assertNotNull(triggerEvents5);
+        assertThat(triggerEvents5.size(),
+                   is(1));
+        assertEquals("test-trigger-3",
+                     triggerEvents5.get(0).getName());
+
+        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"), workflowManager);
+        assertNotNull(triggerEvents6);
+        assertThat(triggerEvents6.size(),
+                   is(0));
+
+        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"), workflowManager);
+        assertNotNull(triggerEvents7);
+        assertThat(triggerEvents7.size(),
+                   is(3));
+        assertEquals("test-trigger-1",
+                     triggerEvents7.get(0).getName());
+        assertEquals("test-trigger-2",
+                     triggerEvents7.get(1).getName());
+        assertEquals("test-trigger-3",
+                     triggerEvents7.get(2).getName());
+
+        List<TriggerEvent> triggerEventsAll = WorkflowUtils.getAllTriggerEventsAssociatedWithEventStates(workflowManager);
+        assertNotNull(triggerEventsAll);
+        assertEquals(3,
+                     triggerEventsAll.size());
     }
 }
