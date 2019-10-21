@@ -19,13 +19,16 @@ as well as two implementations of workflow expression evaluators:
 
 ### Getting Started
 
-To build project and run tets:
+#### Building locally
+To build project and run tets locally:
 
 ```
+git clone https://github.com/serverless-workflow/workflow-impl.git
+cd workflow-impl
 mvn clean install
 ```
 
-To use this project add the following dependencies into your project pom.xml:
+Then to use it in your project pom.xml add:
 
 ```xml
 <dependency>
@@ -34,6 +37,26 @@ To use this project add the following dependencies into your project pom.xml:
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
+
+#### Using JitPack repository
+Add the JitPack repository and the dependency to your pom.xml:
+
+```xml
+<dependency>
+    <groupId>com.github.serverless-workflow</groupId>
+    <artifactId>workflow-impl</artifactId>
+    <version>Tag</version>
+</dependency>
+...
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+You can find the list of Tags and future releases here: https://jitpack.io/#serverless-workflow/workflow-impl
 
 ### API Examples
 
