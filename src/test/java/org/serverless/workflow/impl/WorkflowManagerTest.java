@@ -189,7 +189,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
         assertThat(workflowManager.toJson(),
                    equalToJSONInFile(getResourcePathFor("controller/eventstatewithtrigger.json")));
 
-        assertEquals(workflowManager.toYaml(), getFileContents(getResourcePath("controller/eventstatewithtrigger.yml")));
-
+        assertEquals(workflowManager.toYaml(),
+                     getFileContents(getResourcePath("controller/eventstatewithtrigger.yml")));
     }
 }

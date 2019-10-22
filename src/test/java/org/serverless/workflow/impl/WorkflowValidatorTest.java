@@ -267,7 +267,6 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
     @ValueSource(strings = {"validation/invalidstate.json", "validation/invalidstate.yml"})
     public void testInvalidStateDefinition(String model) {
 
-
         assertThrows(IllegalArgumentException.class,
                      () -> {
                          WorkflowManager workflowManager = getWorkflowManager();

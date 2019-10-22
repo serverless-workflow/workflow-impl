@@ -20,7 +20,6 @@ package org.serverless.workflow.impl;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.serverless.workflow.api.Workflow;
@@ -33,7 +32,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExpressionEvaluationTest extends BaseWorkflowTest {
@@ -110,14 +108,16 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-state-7",
                      eventStateForTrigger32.getName());
 
-        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"), workflowManager);
+        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents1);
         assertThat(triggerEvents1.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents1.get(0).getName());
 
-        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"), workflowManager);
+        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents2);
         assertThat(triggerEvents2.size(),
                    is(2));
@@ -126,14 +126,16 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents2.get(1).getName());
 
-        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"), workflowManager);
+        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents3);
         assertThat(triggerEvents3.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents3.get(0).getName());
 
-        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"), workflowManager);
+        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents4);
         assertThat(triggerEvents4.size(),
                    is(2));
@@ -142,19 +144,22 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents4.get(1).getName());
 
-        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"), workflowManager);
+        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents5);
         assertThat(triggerEvents5.size(),
                    is(1));
         assertEquals("test-trigger-3",
                      triggerEvents5.get(0).getName());
 
-        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"), workflowManager);
+        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents6);
         assertThat(triggerEvents6.size(),
                    is(0));
 
-        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"), workflowManager);
+        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents7);
         assertThat(triggerEvents7.size(),
                    is(3));
@@ -241,14 +246,16 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-state-7",
                      eventStateForTrigger32.getName());
 
-        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"), workflowManager);
+        List<TriggerEvent> triggerEvents1 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-1"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents1);
         assertThat(triggerEvents1.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents1.get(0).getName());
 
-        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"), workflowManager);
+        List<TriggerEvent> triggerEvents2 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-2"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents2);
         assertThat(triggerEvents2.size(),
                    is(2));
@@ -257,14 +264,16 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents2.get(1).getName());
 
-        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"), workflowManager);
+        List<TriggerEvent> triggerEvents3 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-3"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents3);
         assertThat(triggerEvents3.size(),
                    is(1));
         assertEquals("test-trigger-1",
                      triggerEvents3.get(0).getName());
 
-        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"), workflowManager);
+        List<TriggerEvent> triggerEvents4 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-4"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents4);
         assertThat(triggerEvents4.size(),
                    is(2));
@@ -273,19 +282,22 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         assertEquals("test-trigger-2",
                      triggerEvents4.get(1).getName());
 
-        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"), workflowManager);
+        List<TriggerEvent> triggerEvents5 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-5"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents5);
         assertThat(triggerEvents5.size(),
                    is(1));
         assertEquals("test-trigger-3",
                      triggerEvents5.get(0).getName());
 
-        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"), workflowManager);
+        List<TriggerEvent> triggerEvents6 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-6"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents6);
         assertThat(triggerEvents6.size(),
                    is(0));
 
-        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"), workflowManager);
+        List<TriggerEvent> triggerEvents7 = WorkflowUtils.getTriggerEventsForEventState((EventState) WorkflowUtils.getUniqueStates(workflowManager).get("test-state-7"),
+                                                                                        workflowManager);
         assertNotNull(triggerEvents7);
         assertThat(triggerEvents7.size(),
                    is(3));

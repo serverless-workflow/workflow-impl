@@ -54,11 +54,11 @@ public class WorkflowManagerImpl implements WorkflowManager {
         expressionEvaluators = ExpressionEvaluatorProvider.getInstance().get();
         workflowValidator = WorkflowValidatorProvider.getInstance().get();
 
-        if(expressionEvaluators == null) {
+        if (expressionEvaluators == null) {
             throw new RuntimeException("Unable to retrieve expression evaluator");
         }
 
-        if(workflowValidator == null) {
+        if (workflowValidator == null) {
             throw new RuntimeException("Unable to retrieve workflow validator");
         }
 
@@ -67,12 +67,11 @@ public class WorkflowManagerImpl implements WorkflowManager {
         try {
             jsonObjectMapper = new JsonObjectMapper(InitContextProvider.getInstance().get());
             yamlObjectMapper = new YamlObjectMapper(InitContextProvider.getInstance().get());
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.warn("Unable to load application.properties");
             jsonObjectMapper = new JsonObjectMapper();
             yamlObjectMapper = new YamlObjectMapper();
         }
-
     }
 
     @Override
@@ -153,11 +152,13 @@ public class WorkflowManagerImpl implements WorkflowManager {
     public Workflow toWorkflow(String markup) {
         // try it as json markup first, if fails try yaml
         try {
-            return jsonObjectMapper.readValue(markup, Workflow.class);
-        } catch(Exception e) {
+            return jsonObjectMapper.readValue(markup,
+                                              Workflow.class);
+        } catch (Exception e) {
             try {
-                return yamlObjectMapper.readValue(markup, Workflow.class);
-            } catch(Exception ee) {
+                return yamlObjectMapper.readValue(markup,
+                                                  Workflow.class);
+            } catch (Exception ee) {
                 throw new IllegalArgumentException("Could not convert markup to Workflow: " + ee.getMessage());
             }
         }
@@ -166,10 +167,14 @@ public class WorkflowManagerImpl implements WorkflowManager {
     @Override
     public void registerExtension(String extensionId,
                                   Class<? extends Extension> extensionClass) {
-        jsonObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId, extensionClass);
-        jsonObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId, extensionClass);
+        jsonObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId,
+                                                                                   extensionClass);
+        jsonObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId,
+                                                                                     extensionClass);
 
-        yamlObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId, extensionClass);
-        yamlObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId, extensionClass);
+        yamlObjectMapper.getWorkflowModule().getExtensionSerializer().addExtension(extensionId,
+                                                                                   extensionClass);
+        yamlObjectMapper.getWorkflowModule().getExtensionDeserializer().addExtension(extensionId,
+                                                                                     extensionClass);
     }
 }

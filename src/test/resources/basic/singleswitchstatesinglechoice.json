@@ -4,14 +4,9 @@
     {
       "choices": [
         {
-          "single": [
-            {
-              "path": "testpath",
-              "value": "testvalue",
-              "operator": "EQ",
-              "next-state": "testnextstate"
-            }
-          ],
+          "path": "testpath",
+          "value": "testvalue",
+          "operator": "Equals",
           "next-state": "testnextstate"
         }
       ],
