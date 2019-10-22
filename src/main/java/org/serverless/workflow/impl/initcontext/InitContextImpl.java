@@ -40,7 +40,7 @@ public class InitContextImpl implements InitContext {
             } else {
                 logger.warn("Unable to find application.properties. No initializing props available.");
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("Error loading application.properties: " + e.getMessage());
         }
     }

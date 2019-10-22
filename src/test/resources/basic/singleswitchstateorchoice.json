@@ -7,8 +7,7 @@
             {
               "path": "testpath",
               "value": "testvalue",
-              "operator": "EQ",
-              "next-state": "testnextstate"
+              "operator": "Equals"
             }
           ],
           "next-state": "testnextstate"

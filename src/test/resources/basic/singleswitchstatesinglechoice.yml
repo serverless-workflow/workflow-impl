@@ -1,14 +1,12 @@
 ---
-name: "test-wf"
+name: test-wf
 states:
 - choices:
-  - single:
-    - path: "testpath"
-      value: "testvalue"
-      operator: "EQ"
-      next-state: "testnextstate"
-    next-state: "testnextstate"
-  default: "defaultteststate"
-  name: "test-state"
-  type: "SWITCH"
+  - path: testpath
+    value: testvalue
+    operator: Equals
+    next-state: testnextstate
+  default: defaultteststate
+  name: test-state
+  type: SWITCH
   start: false

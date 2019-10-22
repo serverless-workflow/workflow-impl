@@ -213,6 +213,6 @@ public class InitializingContextTest extends BaseWorkflowTest {
                      eventStateForTrigger.getName());
 
         assertEquals(workflowManager.toYaml(),
-                   getFileContents(Paths.get(getResourcePathFor("initcontext/initcontexteventstatewithtriggervaluesresolved.yml"))));
+                     getFileContents(Paths.get(getResourcePathFor("initcontext/initcontexteventstatewithtriggervaluesresolved.yml"))));
     }
 }

@@ -4,8 +4,7 @@ states:
   - or:
     - path: testpath
       value: testvalue
-      operator: EQ
-      next-state: testnextstate
+      operator: Equals
     next-state: testnextstate
   default: defaultteststate
   name: switchstate
