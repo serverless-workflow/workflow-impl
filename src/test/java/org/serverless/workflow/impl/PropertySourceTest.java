@@ -38,13 +38,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.serverless.workflow.impl.util.IsEqualJSON.equalToJSONInFile;
 
-public class InitializingContextTest extends BaseWorkflowTest {
+public class PropertySourceTest extends BaseWorkflowTest {
 
     @Test
-    public void testFromInitializingContext() throws Exception {
+    public void testFromPropertySource() throws Exception {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setMarkup(getFileContents(getResourcePath("initcontext/initcontexteventstatewithtrigger.json")));
+        workflowManager.setMarkup(getFileContents(getResourcePath("propertysource/propertysourceeventstatewithtrigger.json")));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -125,14 +125,14 @@ public class InitializingContextTest extends BaseWorkflowTest {
                      eventStateForTrigger.getName());
 
         assertThat(workflowManager.toJson(),
-                   equalToJSONInFile(getResourcePathFor("initcontext/initcontexteventstatewithtriggervaluesresolved.json")));
+                   equalToJSONInFile(getResourcePathFor("propertysource/propertysourceeventstatewithtriggervaluesresolved.json")));
     }
 
     @Test
-    public void testYamlFromInitializingContext() throws Exception {
+    public void testYamlFromPropertySource() throws Exception {
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
-        workflowManager.setMarkup(getFileContents(getResourcePath("initcontext/initcontexteventstatewithtrigger.yml")));
+        workflowManager.setMarkup(getFileContents(getResourcePath("propertysource/propertysourceeventstatewithtrigger.yml")));
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
@@ -213,6 +213,6 @@ public class InitializingContextTest extends BaseWorkflowTest {
                      eventStateForTrigger.getName());
 
         assertEquals(workflowManager.toYaml(),
-                     getFileContents(Paths.get(getResourcePathFor("initcontext/initcontexteventstatewithtriggervaluesresolved.yml"))));
+                     getFileContents(Paths.get(getResourcePathFor("propertysource/propertysourceeventstatewithtriggervaluesresolved.yml"))));
     }
 }

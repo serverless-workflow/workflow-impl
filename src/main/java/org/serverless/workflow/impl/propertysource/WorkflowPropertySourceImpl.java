@@ -15,41 +15,43 @@
  *   limitations under the License.
  *
  */
-package org.serverless.workflow.impl.initcontext;
+package org.serverless.workflow.impl.propertysource;
 
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.serverless.workflow.api.InitContext;
+import org.serverless.workflow.api.WorkflowPropertySource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InitContextImpl implements InitContext {
+public class WorkflowPropertySourceImpl implements WorkflowPropertySource {
 
-    private Properties context = new Properties();
-    private final String contextPropName = "application.properties";
+    private Properties propertySource = new Properties();
+    private final String propertySourceName = "application.properties";
 
-    private static Logger logger = LoggerFactory.getLogger(InitContextImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(WorkflowPropertySourceImpl.class);
 
-    public InitContextImpl() {
+    public WorkflowPropertySourceImpl() {
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(contextPropName);
+            InputStream is = getClass().getClassLoader().getResourceAsStream(propertySourceName);
 
             if (is != null) {
-                context.load(is);
+                propertySource.load(is);
             } else {
-                logger.warn("Unable to find application.properties. No initializing props available.");
+                logger.warn("Unable to find application.properties. No property source available.");
             }
         } catch (Exception e) {
             logger.error("Error loading application.properties: " + e.getMessage());
         }
     }
 
-    public Properties getContext() {
-        return context;
+    @Override
+    public Properties getPropertySource() {
+        return propertySource;
     }
 
-    public void setContext(Properties context) {
-        this.context = context;
+    @Override
+    public void setPropertySource(Properties propertySource) {
+        this.propertySource = propertySource;
     }
 }
