@@ -22,6 +22,8 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.serverless.workflow.api.ExpressionEvaluator;
 import org.serverless.workflow.api.Workflow;
@@ -141,7 +143,10 @@ public class WorkflowManagerImpl implements WorkflowManager {
         try {
             String jsonString = jsonObjectMapper.writeValueAsString(workflow);
             JsonNode jsonNode = jsonObjectMapper.readTree(jsonString);
-            return new YAMLMapper().writeValueAsString(jsonNode);
+            YAMLFactory yamlFactory = new YAMLFactory()
+                    .disable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+                    .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
+            return new YAMLMapper(yamlFactory).writeValueAsString(jsonNode);
         } catch (Exception e) {
             logger.error("Error mapping to yaml: " + e.getMessage());
             return null;
