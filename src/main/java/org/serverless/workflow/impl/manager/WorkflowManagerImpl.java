@@ -35,7 +35,7 @@ import org.serverless.workflow.api.mapper.YamlObjectMapper;
 import org.serverless.workflow.impl.expression.JexlExpressionEvaluatorImpl;
 import org.serverless.workflow.impl.validator.WorkflowValidatorImpl;
 import org.serverless.workflow.spi.ExpressionEvaluatorProvider;
-import org.serverless.workflow.spi.InitContextProvider;
+import org.serverless.workflow.spi.WorkflowPropertySourceProvider;
 import org.serverless.workflow.spi.WorkflowValidatorProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +67,8 @@ public class WorkflowManagerImpl implements WorkflowManager {
         workflowValidator.setWorkflowManager(this);
 
         try {
-            jsonObjectMapper = new JsonObjectMapper(InitContextProvider.getInstance().get());
-            yamlObjectMapper = new YamlObjectMapper(InitContextProvider.getInstance().get());
+            jsonObjectMapper = new JsonObjectMapper(WorkflowPropertySourceProvider.getInstance().get());
+            yamlObjectMapper = new YamlObjectMapper(WorkflowPropertySourceProvider.getInstance().get());
         } catch (Exception e) {
             logger.warn("Unable to load application.properties");
             jsonObjectMapper = new JsonObjectMapper();

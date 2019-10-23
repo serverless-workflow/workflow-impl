@@ -11,7 +11,7 @@ Serverless Workflow Specification Version 0.1 (https://github.com/cncf/wg-server
 It provides three implementations for the serverless workflow api:
 * WorkflowManagerImpl
 * WorkflowValidatorImpl
-* InitContextImpl
+* WorkflowPropertySourceImpl
 
 as well as two implementations of workflow expression evaluators:
 * JexlExpressionEvaluatorImpl
