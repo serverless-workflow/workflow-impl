@@ -16,4 +16,4 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: true
+  end: true

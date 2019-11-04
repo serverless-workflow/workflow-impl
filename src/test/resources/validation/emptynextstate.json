@@ -1,12 +1,13 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state",
   "states": [
     {
       "time-delay": "PT5S",
       "next-state": "",
       "name": "test-state",
       "type": "DELAY",
-      "start": true
+      "end": true
     }
   ]
 }

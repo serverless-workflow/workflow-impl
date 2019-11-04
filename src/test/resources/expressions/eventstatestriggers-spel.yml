@@ -1,4 +1,5 @@
 name: test-wf
+starts-at: test-state-1
 trigger-defs:
 - name: test-trigger-1
   source: testsource
@@ -29,7 +30,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: true
+  end: true
 - name: test-state-2
   events:
   - event-expression: name eq 'test-trigger-1' or name eq 'test-trigger-2'
@@ -46,7 +47,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false
 - name: test-state-3
   events:
   - event-expression: source eq 'testsource' and type eq 'testeventtype'
@@ -63,7 +64,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false
 - name: test-state-4
   events:
   - event-expression: name eq 'test-trigger-1' or name eq 'test-trigger-2'
@@ -80,7 +81,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false
 - name: test-state-5
   events:
   - event-expression: name ne 'test-trigger-1' and name ne 'test-trigger-2'
@@ -97,7 +98,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false
 - name: test-state-6
   events:
   - event-expression: correlationToken == null
@@ -114,7 +115,7 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false
 - name: test-state-7
   events:
   - event-expression: correlationToken != null
@@ -131,4 +132,4 @@ states:
         next-state: testNextRetryState
     next-state: testNextState
   type: EVENT
-  start: false
+  end: false

@@ -1,3 +1,4 @@
+starts-at: switchstate
 states:
 - choices:
   - not:
@@ -8,4 +9,4 @@ states:
   default: defaultteststate
   name: switchstate
   type: SWITCH
-  start: false
+  end: false

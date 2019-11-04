@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "",
   "trigger-defs": [
     {
       "name": "testtriggerevent",

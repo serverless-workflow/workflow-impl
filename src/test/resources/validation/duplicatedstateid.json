@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "duplicated",
   "states": [
     {
       "name": "duplicated",
@@ -20,12 +21,12 @@
       ],
       "next-state": "testnextstate",
       "type": "OPERATION",
-      "start": true
+      "end": true
     },
     {
       "name": "duplicated",
-      "status": "SUCCESS",
-      "type": "END"
+      "type": "DELAY",
+      "end": false
     }
   ]
 }

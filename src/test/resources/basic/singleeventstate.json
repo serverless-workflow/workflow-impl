@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state",
   "states": [
     {
       "events": [
@@ -27,7 +28,7 @@
       ],
       "name": "test-state",
       "type": "EVENT",
-      "start": true
+      "end": true
     }
   ]
 }

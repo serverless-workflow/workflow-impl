@@ -1,10 +1,12 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state",
   "states": [
     {
       "branches": [
         {
           "name": "firsttestbranch",
+          "starts-at": "operationstate",
           "states": [
             {
               "action-mode": "SEQUENTIAL",
@@ -26,20 +28,21 @@
               "next-state": "testnextstate",
               "name": "operationstate",
               "type": "OPERATION",
-              "start": true
+              "end": true
             }
           ],
           "wait-for-completion": false
         },
         {
           "name": "secondtestbranch",
+          "starts-at": "delaystate",
           "states": [
             {
               "time-delay": "PT5S",
               "next-state": "testNextState",
               "name": "delaystate",
               "type": "DELAY",
-              "start": false
+              "end": false
             }
           ],
           "wait-for-completion": true
@@ -48,7 +51,7 @@
       "next-state": "testnextstate",
       "name": "test-state",
       "type": "PARALLEL",
-      "start": true
+      "end": true
     }
   ]
 }

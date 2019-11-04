@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state",
   "states": [
     {
       "choices": [
@@ -13,7 +14,7 @@
       "default": "defaultteststate",
       "name": "test-state",
       "type": "SWITCH",
-      "start": false
+      "end": false
     }
   ]
 }

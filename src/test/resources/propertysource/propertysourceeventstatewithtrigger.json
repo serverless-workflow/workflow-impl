@@ -1,5 +1,6 @@
 {
   "name": "workflow.name",
+  "starts-at": "workflow.state.name",
   "trigger-defs": [
     {
       "name": "workflow.trigger.name",
@@ -34,7 +35,7 @@
       ],
       "name": "workflow.state.name",
       "type": "workflow.state.type",
-      "start": true
+      "end": true
     }
   ]
 }

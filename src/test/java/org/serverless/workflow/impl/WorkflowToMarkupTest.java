@@ -40,8 +40,6 @@ import org.serverless.workflow.api.functions.Function;
 import org.serverless.workflow.api.interfaces.Choice;
 import org.serverless.workflow.api.interfaces.State;
 import org.serverless.workflow.api.states.DelayState;
-import org.serverless.workflow.api.states.EndState;
-import org.serverless.workflow.api.states.EndState.Status;
 import org.serverless.workflow.api.states.EventState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
@@ -56,7 +54,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testEmptyWorkflow() {
-        Workflow workflow = new Workflow().withName("test-wf");
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("");
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
@@ -71,7 +69,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testSimpleWorkflowWithMetadata() {
-        Workflow workflow = new Workflow().withName("test-wf")
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("")
                 .withMetadata(
                         Stream.of(new Object[][]{
                                 {"key1", "value1"},
@@ -95,7 +93,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testTrigger() {
-        Workflow workflow = new Workflow().withName("test-wf").withTriggerDefs(
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("").withTriggerDefs(
                 Arrays.asList(
                         new TriggerEvent().withName("test-trigger").withType("testeventtype")
                                 .withCorrelationToken("testcorrelationtoken").withSource("testsource")
@@ -116,29 +114,9 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
     }
 
     @Test
-    public void testEndState() {
-
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new EndState().withName("test-state").withStatus(Status.SUCCESS));
-        }});
-
-        WorkflowManager workflowManager = getWorkflowManager();
-        assertNotNull(workflowManager);
-        workflowManager.setWorkflow(workflow);
-
-        assertNotNull(workflowManager.toJson());
-
-        assertThat(workflowManager.toJson(),
-                   equalToJSONInFile(getResourcePathFor("basic/singleendstate.json")));
-
-        assertEquals(workflowManager.toYaml(),
-                     getFileContents(getResourcePath("basic/singleendstate.yml")));
-    }
-
-    @Test
     public void testEventState() {
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new EventState().withName("test-state").withStart(true)
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state").withStates(new ArrayList<State>() {{
+            add(new EventState().withName("test-state").withEnd(true)
                         .withEvents(Arrays.asList(
                                 new Event().withEventExpression("testEventExpression").withTimeout("testTimeout")
                                         .withActionMode(Event.ActionMode.SEQUENTIAL)
@@ -169,8 +147,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testDelayState() {
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new DelayState().withName("test-state").withStart(false).withNextState("testNextState").withTimeDelay("PT5S"));
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state").withStates(new ArrayList<State>() {{
+            add(new DelayState().withName("test-state").withEnd(false).withNextState("testNextState").withTimeDelay("PT5S"));
         }});
 
         WorkflowManager workflowManager = getWorkflowManager();
@@ -194,8 +172,8 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
             put("two",
                 "2");
         }};
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new OperationState().withName("test-state").withStart(true).withActionMode(OperationState.ActionMode.SEQUENTIAL).withNextState("testnextstate")
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state").withStates(new ArrayList<State>() {{
+            add(new OperationState().withName("test-state").withEnd(true).withActionMode(OperationState.ActionMode.SEQUENTIAL).withNextState("testnextstate")
                         .withFilter(new Filter()
                                             .withInputPath("$.owner.address.zipcode")
                                             .withResultPath("$.country.code")
@@ -226,12 +204,12 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testParallellState() {
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new ParallelState().withName("test-state").withStart(true).withNextState("testnextstate")
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state").withStates(new ArrayList<State>() {{
+            add(new ParallelState().withName("test-state").withEnd(true).withNextState("testnextstate")
                         .withBranches(Arrays.asList(
-                                new Branch().withName("firsttestbranch").withStates(
+                                new Branch().withName("firsttestbranch").withStartsAt("operationstate").withStates(
                                         new ArrayList<State>() {{
-                                            add(new OperationState().withName("operationstate").withStart(true).withActionMode(OperationState.ActionMode.SEQUENTIAL).withNextState("testnextstate")
+                                            add(new OperationState().withName("operationstate").withEnd(true).withActionMode(OperationState.ActionMode.SEQUENTIAL).withNextState("testnextstate")
                                                         .withActions(Arrays.asList(
                                                                 new Action().withFunction(new Function().withName("testFunction").withType("someType"))
                                                                         .withTimeout("PT5S")
@@ -241,9 +219,9 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                                                         )));
                                         }}
                                 ),
-                                new Branch().withName("secondtestbranch").withStates(
+                                new Branch().withName("secondtestbranch").withStartsAt("delaystate").withStates(
                                         new ArrayList<State>() {{
-                                            add(new DelayState().withName("delaystate").withStart(false).withNextState("testNextState").withTimeDelay("PT5S"));
+                                            add(new DelayState().withName("delaystate").withEnd(false).withNextState("testNextState").withTimeDelay("PT5S"));
                                         }}
                                 ).withWaitForCompletion(true)
                         )));
@@ -264,9 +242,9 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
 
     @Test
     public void testSwitchState() {
-        Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
+        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state").withStates(new ArrayList<State>() {{
             add(
-                    new SwitchState().withName("test-state").withDefault("defaultteststate").withStart(false).withChoices(
+                    new SwitchState().withName("test-state").withDefault("defaultteststate").withEnd(false).withChoices(
                             new ArrayList<Choice>() {{
                                 add(
                                         new AndChoice().withNextState("testnextstate").withAnd(
