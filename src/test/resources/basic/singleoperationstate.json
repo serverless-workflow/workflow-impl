@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state",
   "states": [
     {
       "action-mode": "SEQUENTIAL",
@@ -30,7 +31,7 @@
       "next-state": "testnextstate",
       "name": "test-state",
       "type": "OPERATION",
-      "start": true
+      "end": true
     }
   ]
 }

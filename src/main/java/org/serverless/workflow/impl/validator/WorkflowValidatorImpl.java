@@ -29,8 +29,8 @@ import org.json.JSONObject;
 import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
+import org.serverless.workflow.api.branches.Branch;
 import org.serverless.workflow.api.states.DelayState;
-import org.serverless.workflow.api.states.EndState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
 import org.serverless.workflow.api.states.SwitchState;
@@ -90,13 +90,21 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                         addValidationError("Workflow name should not be empty",
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
+
+                    if(workflow.getStartsAt() == null || workflow.getStartsAt().trim().isEmpty()) {
+                        addValidationError("Workflow does not define a start state",
+                                           ValidationError.WORKFLOW_VALIDATION);
+                    }
+
+
+
                     // make sure we have at least one state
                     if (workflow.getStates() == null || workflow.getStates().isEmpty()) {
                         addValidationError("No states found.",
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
 
-                    // make sure we have one start state and check for null next id and next-state
+                    // make sure we have at least one end state and check for null next id and next-state
                     final Validation validation = new Validation();
                     if (workflow.getStates() != null) {
                         workflow.getStates().forEach(s -> {
@@ -106,8 +114,13 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                             } else {
                                 validation.addState(s.getName());
                             }
-                            if (s.isStart()) {
+
+                            if(workflow.getStartsAt() != null && s.getName() != null && workflow.getStartsAt().equals(s.getName())) {
                                 validation.addStartState();
+                            }
+
+                            if (s.isEnd()) {
+                                validation.addEndState();
                             }
 
                             if (s instanceof OperationState) {
@@ -133,6 +146,15 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                     addValidationError("Next state should not be empty.",
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
+
+                                if(parallelState.getBranches() != null && parallelState.getBranches().size() > 0) {
+                                    for(Branch branch : parallelState.getBranches()) {
+                                        if(branch.getStartsAt() == null || branch.getStartsAt().trim().isEmpty()) {
+                                            addValidationError("Branch does not define a start state..",
+                                                               ValidationError.WORKFLOW_VALIDATION);
+                                        }
+                                    }
+                                }
                             }
                             if (s instanceof DelayState) {
                                 DelayState delayState = (DelayState) s;
@@ -141,9 +163,6 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                     addValidationError("Next state should not be empty.",
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
-                            }
-                            if (s instanceof EndState) {
-                                validation.addEndState();
                             }
                         });
                     }
@@ -158,16 +177,9 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
 
-                    if (strictValidationEnabled) {
-                        if (validation.endStates == 0) {
-                            addValidationError("No end state found.",
-                                               ValidationError.WORKFLOW_VALIDATION);
-                        }
-
-                        if (validation.endStates > 1) {
-                            addValidationError("Multiple end states found.",
-                                               ValidationError.WORKFLOW_VALIDATION);
-                        }
+                    if (validation.endStates == 0) {
+                        addValidationError("No end state found.",
+                                           ValidationError.WORKFLOW_VALIDATION);
                     }
 
                     // make sure if we have trigger events that they unique name

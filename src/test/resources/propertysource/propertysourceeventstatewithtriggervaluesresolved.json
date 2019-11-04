@@ -1,5 +1,6 @@
 {
   "name" : "test-wf",
+  "starts-at": "test-state",
   "trigger-defs" : [ {
     "name" : "test-trigger",
     "source" : "testsource",
@@ -27,6 +28,6 @@
     } ],
     "name" : "test-state",
     "type" : "EVENT",
-    "start" : true
+    "end" : true
   } ]
 }

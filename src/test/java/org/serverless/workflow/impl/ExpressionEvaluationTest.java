@@ -26,6 +26,7 @@ import org.serverless.workflow.api.Workflow;
 import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.events.TriggerEvent;
 import org.serverless.workflow.api.states.EventState;
+import org.serverless.workflow.api.validation.ValidationError;
 import org.serverless.workflow.impl.utils.WorkflowUtils;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -45,6 +46,8 @@ public class ExpressionEvaluationTest extends BaseWorkflowTest {
         workflowManager.setMarkup(getFileContents(getResourcePath(model)));
 
         assertNotNull(workflowManager.getWorkflowValidator());
+
+        List<ValidationError> ve = workflowManager.getWorkflowValidator().validate();
 
         assertTrue(workflowManager.getWorkflowValidator().isValid());
 

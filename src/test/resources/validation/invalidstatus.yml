@@ -2,5 +2,5 @@ name: test-wf
 states:
 - name: test-state
   status: CUSTOMSTATUS
-  type: END
-  start: false
+  type: DELAY
+  end: false

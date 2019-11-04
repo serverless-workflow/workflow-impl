@@ -30,7 +30,6 @@ import org.serverless.workflow.api.events.Event;
 import org.serverless.workflow.api.events.TriggerEvent;
 import org.serverless.workflow.api.functions.Function;
 import org.serverless.workflow.api.interfaces.State;
-import org.serverless.workflow.api.states.EndState;
 import org.serverless.workflow.api.states.EventState;
 
 public class WorkflowUtils {
@@ -146,7 +145,7 @@ public class WorkflowUtils {
     }
 
     public static State getStartState(WorkflowManager workflowManager) {
-        return workflowManager.getWorkflow().getStates().stream().filter(State::isStart)
+        return workflowManager.getWorkflow().getStates().stream().filter(s -> s.getName().equals(workflowManager.getWorkflow().getStartsAt()))
                 .findFirst().orElse(null);
     }
 
@@ -158,6 +157,6 @@ public class WorkflowUtils {
 
     public static boolean haveEndState(WorkflowManager workflowManager) {
         return workflowManager.getWorkflow().getStates().stream()
-                .anyMatch(state -> state instanceof EndState);
+                .anyMatch(state -> state.isEnd());
     }
 }

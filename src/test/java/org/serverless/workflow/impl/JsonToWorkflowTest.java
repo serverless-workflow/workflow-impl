@@ -31,7 +31,6 @@ import org.serverless.workflow.api.choices.SingleChoice;
 import org.serverless.workflow.api.events.Event;
 import org.serverless.workflow.api.states.DefaultState;
 import org.serverless.workflow.api.states.DelayState;
-import org.serverless.workflow.api.states.EndState;
 import org.serverless.workflow.api.states.EventState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
@@ -56,6 +55,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
+        assertEquals("", workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
@@ -74,6 +74,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
+        assertEquals("", workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
@@ -99,6 +100,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
+        assertEquals("", workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(1));
@@ -117,33 +119,6 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"basic/singleendstate.json", "basic/singleendstate.yml"})
-    public void testEndState(String model) {
-
-        WorkflowManager workflowManager = getWorkflowManager();
-        assertNotNull(workflowManager);
-        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
-
-        Workflow workflow = workflowManager.getWorkflow();
-        assertNotNull(workflow);
-        assertThat(workflow.getTriggerDefs().size(),
-                   is(0));
-        assertNotNull(workflow.getStates());
-        assertThat(workflow.getStates().size(),
-                   is(1));
-        assertTrue(workflow.getStates().get(0) instanceof EndState);
-
-        EndState endState = (EndState) workflow.getStates().get(0);
-        assertEquals(EndState.Status.SUCCESS,
-                     endState.getStatus());
-        assertFalse(endState.isStart());
-        assertEquals(EndState.Type.END,
-                     endState.getType());
-        assertEquals("test-state",
-                     endState.getName());
-    }
-
-    @ParameterizedTest
     @ValueSource(strings = {"basic/singleeventstate.json", "basic/singleeventstate.yml"})
     public void testEventState(String model) {
         WorkflowManager workflowManager = getWorkflowManager();
@@ -152,6 +127,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
+
+        assertEquals("test-state", workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());
@@ -162,7 +139,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         EventState eventState = (EventState) workflow.getStates().get(0);
         assertEquals("test-state",
                      eventState.getName());
-        assertTrue(eventState.isStart());
+        assertTrue(eventState.isEnd());
         assertEquals(EventState.Type.EVENT,
                      eventState.getType());
 
@@ -199,6 +176,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
+
+        assertEquals("test-state", workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());
@@ -225,6 +204,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
+
+        assertEquals("test-state", workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());

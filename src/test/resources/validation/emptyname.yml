@@ -1,7 +1,8 @@
 name: ''
+starts-at: test-state
 states:
 - time-delay: PT5S
   next-state: testNextState
   name: test-state
   type: DELAY
-  start: true
+  end: true

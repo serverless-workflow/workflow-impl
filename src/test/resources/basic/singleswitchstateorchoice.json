@@ -1,4 +1,5 @@
 {
+  "starts-at": "switchstate",
   "states": [
     {
       "choices": [
@@ -16,7 +17,7 @@
       "default": "defaultteststate",
       "name": "switchstate",
       "type": "SWITCH",
-      "start": false
+      "end": false
     }
   ]
 }

@@ -6,7 +6,7 @@
       "next-state": "testNextState",
       "name": "test-state",
       "type": "CUSTOMSTATETYPE",
-      "start": true
+      "end": true
     }
   ]
 }

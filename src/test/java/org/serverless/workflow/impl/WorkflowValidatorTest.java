@@ -43,7 +43,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
 
-        assertEquals(4,
+        assertEquals(6,
                      validationErrorList.size());
     }
 
@@ -59,13 +59,19 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
 
-        assertEquals(2,
+        assertEquals(4,
                      validationErrorList.size());
         expectError(validationErrorList,
                     "No states found.",
                     ValidationError.WORKFLOW_VALIDATION);
         expectError(validationErrorList,
                     "No start state found.",
+                    ValidationError.WORKFLOW_VALIDATION);
+        expectError(validationErrorList,
+                    "Workflow does not define a start state",
+                    ValidationError.WORKFLOW_VALIDATION);
+        expectError(validationErrorList,
+                    "No end state found.",
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
@@ -80,7 +86,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         assertNotNull(workflowValidator);
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
-        assertEquals(4,
+        assertEquals(6,
                      validationErrorList.size());
 
         expectError(validationErrorList,
@@ -108,7 +114,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
 
-        assertEquals(3,
+        assertEquals(5,
                      validationErrorList.size());
         expectError(validationErrorList,
                     "No states found.",
@@ -118,48 +124,6 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
         expectError(validationErrorList,
                     "Trigger Event does not have unique name: testtriggerevent",
-                    ValidationError.WORKFLOW_VALIDATION);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"validation/multiplestartstates.json", "validation/multiplestartstates.yml"})
-    public void testMultipleStartStates(String model) {
-
-        WorkflowManager workflowManager = getWorkflowManager();
-        assertNotNull(workflowManager);
-        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
-        WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
-        assertNotNull(workflowValidator);
-
-        List<ValidationError> validationErrorList = workflowValidator.validate();
-
-        assertEquals(1,
-                     validationErrorList.size());
-        expectError(validationErrorList,
-                    "Multiple start states found.",
-                    ValidationError.WORKFLOW_VALIDATION);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"validation/multipleendstates.json", "validation/multipleendstates.yml"})
-    public void testMultipleEndStatesInStrictMode(String model) {
-
-        WorkflowManager workflowManager = getWorkflowManager();
-        assertNotNull(workflowManager);
-        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
-        WorkflowValidator workflowValidator = workflowManager.getWorkflowValidator();
-        assertNotNull(workflowValidator);
-        workflowValidator.setStrictValidationEnabled(true);
-
-        List<ValidationError> validationErrorList = workflowValidator.validate();
-
-        assertEquals(2,
-                     validationErrorList.size());
-        expectError(validationErrorList,
-                    "No start state found.",
-                    ValidationError.WORKFLOW_VALIDATION);
-        expectError(validationErrorList,
-                    "Multiple end states found.",
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
@@ -191,13 +155,20 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         workflowValidator.setSchemaValidationEnabled(false);
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
-        assertEquals(2,
+
+        assertEquals(4,
                      validationErrorList.size());
         expectError(validationErrorList,
                     "No states found.",
                     ValidationError.WORKFLOW_VALIDATION);
         expectError(validationErrorList,
                     "No start state found.",
+                    ValidationError.WORKFLOW_VALIDATION);
+        expectError(validationErrorList,
+                    "Workflow does not define a start state",
+                    ValidationError.WORKFLOW_VALIDATION);
+        expectError(validationErrorList,
+                    "No end state found.",
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
@@ -214,7 +185,8 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
         workflowValidator.setStrictValidationEnabled(true);
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
-        assertEquals(3,
+
+        assertEquals(4,
                      validationErrorList.size());
         expectError(validationErrorList,
                     "No states found.",
@@ -224,6 +196,9 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
                     ValidationError.WORKFLOW_VALIDATION);
         expectError(validationErrorList,
                     "No end state found.",
+                    ValidationError.WORKFLOW_VALIDATION);
+        expectError(validationErrorList,
+                    "Workflow does not define a start state",
                     ValidationError.WORKFLOW_VALIDATION);
     }
 
@@ -335,7 +310,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
 
-        assertEquals(1,
+        assertEquals(3,
                      validationErrorList.size());
 
         expectError(validationErrorList,

@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "starts-at": "test-state-1",
   "trigger-defs": [
     {
       "name": "test-trigger-1",
@@ -46,7 +47,7 @@
         }
       ],
       "type": "EVENT",
-      "start": true
+      "end": true
     },
     {
       "name": "test-state-2",
@@ -73,7 +74,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     },
     {
       "name": "test-state-3",
@@ -100,7 +101,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     },
     {
       "name": "test-state-4",
@@ -127,7 +128,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     },
     {
       "name": "test-state-5",
@@ -154,7 +155,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     },
     {
       "name": "test-state-6",
@@ -181,7 +182,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     },
     {
       "name": "test-state-7",
@@ -208,7 +209,7 @@
         }
       ],
       "type": "EVENT",
-      "start": false
+      "end": false
     }
   ]
 }
