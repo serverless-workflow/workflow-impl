@@ -307,7 +307,7 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      ((DelayState) branch2.getStates().get(0)).getName());
         assertEquals("testNextState",
                      ((DelayState) branch2.getStates().get(0)).getNextState());
-        assertEquals(5,
+        assertEquals("PT5S",
                      ((DelayState) branch2.getStates().get(0)).getTimeDelay());
         assertTrue(branch2.isWaitForCompletion());
     }

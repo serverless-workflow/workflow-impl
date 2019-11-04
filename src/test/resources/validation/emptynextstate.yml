@@ -1,6 +1,6 @@
 name: test-wf
 states:
-- time-delay: 5
+- time-delay: PT5S
   next-state: ''
   name: test-state
   type: DELAY

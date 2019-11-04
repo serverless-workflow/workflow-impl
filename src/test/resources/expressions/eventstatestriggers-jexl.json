@@ -33,10 +33,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -60,10 +60,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -87,10 +87,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -114,10 +114,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -141,10 +141,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -168,10 +168,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }
@@ -195,10 +195,10 @@
               "function": {
                 "name": "testFunction"
               },
-              "timeout": 5,
+              "timeout": "PT5S",
               "retry": {
                 "match": "testMatch",
-                "retry-interval": 2,
+                "retry-interval": "PT5S",
                 "max-retry": 10,
                 "next-state": "testNextRetryState"
               }

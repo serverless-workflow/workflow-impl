@@ -126,9 +126,9 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
                                                 .withNextState("testNextState")
                                                 .withActions(Arrays.asList(
                                                         new Action().withFunction(new Function().withName("testFunction"))
-                                                                .withTimeout(5)
+                                                                .withTimeout("PT5S")
                                                                 .withRetry(new Retry().withMatch("testMatch").withMaxRetry(10)
-                                                                                   .withRetryInterval(2)
+                                                                                   .withRetryInterval("PT5S")
                                                                                    .withNextState("testNextRetryState"))
                                                 ))
                                 )));

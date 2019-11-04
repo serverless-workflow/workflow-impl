@@ -145,9 +145,9 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                                         .withNextState("testNextState")
                                         .withActions(Arrays.asList(
                                                 new Action().withFunction(new Function().withName("testFunction").withType("someType"))
-                                                        .withTimeout(5)
+                                                        .withTimeout("PT5S")
                                                         .withRetry(new Retry().withMatch("testMatch").withMaxRetry(10)
-                                                                           .withRetryInterval(2)
+                                                                           .withRetryInterval("PT5S")
                                                                            .withNextState("testNextRetryState"))
                                         ))
                         ))
@@ -170,7 +170,7 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
     @Test
     public void testDelayState() {
         Workflow workflow = new Workflow().withName("test-wf").withStates(new ArrayList<State>() {{
-            add(new DelayState().withName("test-state").withStart(false).withNextState("testNextState").withTimeDelay(5));
+            add(new DelayState().withName("test-state").withStart(false).withNextState("testNextState").withTimeDelay("PT5S"));
         }});
 
         WorkflowManager workflowManager = getWorkflowManager();
@@ -204,9 +204,9 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                                 new Action().withFunction(new Function().withName("testFunction")
                                                                   .withType("someType")
                                                                   .withParameters(params))
-                                        .withTimeout(5)
+                                        .withTimeout("PT5S")
                                         .withRetry(new Retry().withMatch("testMatch").withMaxRetry(10)
-                                                           .withRetryInterval(2)
+                                                           .withRetryInterval("PT5S")
                                                            .withNextState("testNextRetryState"))
                         )));
         }});
@@ -234,16 +234,16 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
                                             add(new OperationState().withName("operationstate").withStart(true).withActionMode(OperationState.ActionMode.SEQUENTIAL).withNextState("testnextstate")
                                                         .withActions(Arrays.asList(
                                                                 new Action().withFunction(new Function().withName("testFunction").withType("someType"))
-                                                                        .withTimeout(5)
+                                                                        .withTimeout("PT5S")
                                                                         .withRetry(new Retry().withMatch("testMatch").withMaxRetry(10)
-                                                                                           .withRetryInterval(2)
+                                                                                           .withRetryInterval("PT5S")
                                                                                            .withNextState("testNextRetryState"))
                                                         )));
                                         }}
                                 ),
                                 new Branch().withName("secondtestbranch").withStates(
                                         new ArrayList<State>() {{
-                                            add(new DelayState().withName("delaystate").withStart(false).withNextState("testNextState").withTimeDelay(5));
+                                            add(new DelayState().withName("delaystate").withStart(false).withNextState("testNextState").withTimeDelay("PT5S"));
                                         }}
                                 ).withWaitForCompletion(true)
                         )));
