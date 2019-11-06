@@ -1,4 +1,5 @@
 name: test-wf
+id: "abc"
 starts-at: duplicated
 states:
 - name: duplicated

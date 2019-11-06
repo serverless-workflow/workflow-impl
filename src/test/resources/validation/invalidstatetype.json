@@ -1,5 +1,6 @@
 {
   "name": "test-wf",
+  "id": "abc",
   "states": [
     {
       "time-delay": "PT5S",

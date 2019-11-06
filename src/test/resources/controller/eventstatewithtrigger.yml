@@ -1,4 +1,5 @@
 name: "test-wf"
+id: "abc"
 starts-at: "test-state"
 trigger-defs:
 - name: "test-trigger"

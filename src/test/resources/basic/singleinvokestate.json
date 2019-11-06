@@ -1,0 +1,16 @@
+{
+  "name": "test-wf",
+  "id": "abc",
+  "starts-at": "test-state",
+  "states": [
+    {
+      "wait-for-completion": true,
+      "workflow-id": "abc",
+      "workflow-version": "123",
+      "next-state": "testNextState",
+      "name": "test-wf",
+      "type": "INVOKE",
+      "end": true
+    }
+  ]
+}
