@@ -1,5 +1,6 @@
 {
   "name": "",
+  "id": "abc",
   "starts-at": "test-state",
   "states": [
     {

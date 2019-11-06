@@ -32,6 +32,7 @@ import org.serverless.workflow.api.events.Event;
 import org.serverless.workflow.api.states.DefaultState;
 import org.serverless.workflow.api.states.DelayState;
 import org.serverless.workflow.api.states.EventState;
+import org.serverless.workflow.api.states.InvokeState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
 import org.serverless.workflow.api.states.SwitchState;
@@ -192,6 +193,33 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
                      delayState.getName());
         assertEquals(EventState.Type.DELAY,
                      delayState.getType());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"basic/singleinvokestate.json", "basic/singleinvokestate.yml"})
+    public void testInvokeState(String model) {
+
+        WorkflowManager workflowManager = getWorkflowManager();
+        assertNotNull(workflowManager);
+        workflowManager.setMarkup(getFileContents(getResourcePath(model)));
+
+        Workflow workflow = workflowManager.getWorkflow();
+        assertNotNull(workflow);
+
+        assertEquals("test-state", workflow.getStartsAt());
+        assertThat(workflow.getTriggerDefs().size(),
+                   is(0));
+        assertNotNull(workflow.getStates());
+        assertThat(workflow.getStates().size(),
+                   is(1));
+        assertTrue(workflow.getStates().get(0) instanceof InvokeState);
+
+        InvokeState invokeState = (InvokeState) workflow.getStates().get(0);
+        assertEquals("abc",
+                     invokeState.getWorkflowId());
+        assertEquals("123",
+                     invokeState.getWorkflowVersion());
+        assertTrue(invokeState.isWaitForCompletion());
     }
 
     @ParameterizedTest

@@ -81,7 +81,7 @@ public class WorkflowExtensionsTest extends BaseWorkflowTest {
         testParam3Map.put("key2",
                           "value2");
 
-        Workflow workflow = new Workflow().withName("test-wf")
+        Workflow workflow = new Workflow().withName("test-wf").withId("abc")
                 .withExtensions(
                         Arrays.asList(
                                 new TestExtensionImpl("testextension",
@@ -175,7 +175,7 @@ public class WorkflowExtensionsTest extends BaseWorkflowTest {
         secondTestParam3Map.put("key2",
                                 "secondvalue2");
 
-        Workflow workflow = new Workflow().withName("test-wf")
+        Workflow workflow = new Workflow().withName("test-wf").withId("abc")
                 .withExtensions(
                         Arrays.asList(
                                 new TestExtensionImpl("testextension",

@@ -1,4 +1,5 @@
 name: ''
+id: abc
 starts-at: test-state
 states:
 - time-delay: PT5S

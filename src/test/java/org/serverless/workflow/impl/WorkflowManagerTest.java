@@ -111,7 +111,7 @@ public class WorkflowManagerTest extends BaseWorkflowTest {
 
     @Test
     public void testManagerFromWorkflow() {
-        Workflow workflow = new Workflow().withName("test-wf").withStartsAt("test-state")
+        Workflow workflow = new Workflow().withName("test-wf").withId("abc").withStartsAt("test-state")
                 .withTriggerDefs(
                         Arrays.asList(
                                 new TriggerEvent().withName("test-trigger").withType("testeventtype")

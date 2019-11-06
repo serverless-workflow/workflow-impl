@@ -43,7 +43,7 @@ public class WorkflowValidatorTest extends BaseWorkflowTest {
 
         List<ValidationError> validationErrorList = workflowValidator.validate();
 
-        assertEquals(6,
+        assertEquals(7,
                      validationErrorList.size());
     }
 

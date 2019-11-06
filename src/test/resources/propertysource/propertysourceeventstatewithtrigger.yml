@@ -1,4 +1,5 @@
 name: "workflow.name"
+id: "workflow.id"
 starts-at: "workflow.state.name"
 trigger-defs:
 - name: "workflow.trigger.name"

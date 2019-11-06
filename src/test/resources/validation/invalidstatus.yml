@@ -1,4 +1,5 @@
 name: test-wf
+id: abc
 states:
 - name: test-state
   status: CUSTOMSTATUS

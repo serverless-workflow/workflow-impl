@@ -1,4 +1,6 @@
 {
+  "name": "test-wf",
+  "id": "abc",
   "starts-at": "switchstate",
   "states": [
     {

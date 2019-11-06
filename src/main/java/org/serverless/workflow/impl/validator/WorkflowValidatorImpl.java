@@ -31,6 +31,7 @@ import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
 import org.serverless.workflow.api.branches.Branch;
 import org.serverless.workflow.api.states.DelayState;
+import org.serverless.workflow.api.states.InvokeState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
 import org.serverless.workflow.api.states.SwitchState;
@@ -86,6 +87,13 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
 
                 if (workflowManager.getWorkflow() != null) {
                     Workflow workflow = workflowManager.getWorkflow();
+
+                    if (workflow.getId() == null || workflow.getId().trim().isEmpty()) {
+                        addValidationError("Workflow id should not be empty",
+                                           ValidationError.WORKFLOW_VALIDATION);
+                    }
+
+
                     if (workflow.getName() == null || workflow.getName().trim().isEmpty()) {
                         addValidationError("Workflow name should not be empty",
                                            ValidationError.WORKFLOW_VALIDATION);
@@ -161,6 +169,19 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
 
                                 if (delayState.getNextState() == null || delayState.getNextState().trim().isEmpty()) {
                                     addValidationError("Next state should not be empty.",
+                                                       ValidationError.WORKFLOW_VALIDATION);
+                                }
+                            }
+                            if (s instanceof InvokeState) {
+                                InvokeState invokeState = (InvokeState) s;
+
+                                if (invokeState.getWorkflowId() == null || invokeState.getWorkflowId().trim().isEmpty()) {
+                                    addValidationError("Invoke State does not define workflow id.",
+                                                       ValidationError.WORKFLOW_VALIDATION);
+                                }
+
+                                if (invokeState.getWorkflowVersion() == null || invokeState.getWorkflowVersion().trim().isEmpty()) {
+                                    addValidationError("Invoke State does not define workflow version.",
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
                             }
