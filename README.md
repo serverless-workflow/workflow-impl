@@ -5,7 +5,8 @@
 [![Release](https://jitpack.io/v/serverless-workflow/workflow-impl.svg)](https://jitpack.io/#serverless-workflow/workflow-impl)
 
 
-This project provides an implementation for Serverless Workflow capabilities for Kogito
+This project provides an implementation of the 
+Serverless Workflow Specification Version 0.1 (https://github.com/cncf/wg-serverless/blob/master/workflow/spec/spec.md)
 
 It provides three implementations for the serverless workflow api:
 * WorkflowManagerImpl
