@@ -32,9 +32,9 @@ import org.serverless.workflow.api.events.Event;
 import org.serverless.workflow.api.states.DefaultState;
 import org.serverless.workflow.api.states.DelayState;
 import org.serverless.workflow.api.states.EventState;
-import org.serverless.workflow.api.states.InvokeState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
+import org.serverless.workflow.api.states.SubflowState;
 import org.serverless.workflow.api.states.SwitchState;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -56,7 +56,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
-        assertEquals("", workflow.getStartsAt());
+        assertEquals("",
+                     workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
@@ -75,7 +76,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
-        assertEquals("", workflow.getStartsAt());
+        assertEquals("",
+                     workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
@@ -101,7 +103,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
 
         Workflow workflow = workflowManager.getWorkflow();
 
-        assertEquals("", workflow.getStartsAt());
+        assertEquals("",
+                     workflow.getStartsAt());
         assertNotNull(workflow);
         assertThat(workflow.getTriggerDefs().size(),
                    is(1));
@@ -129,7 +132,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
 
-        assertEquals("test-state", workflow.getStartsAt());
+        assertEquals("test-state",
+                     workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());
@@ -178,7 +182,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
 
-        assertEquals("test-state", workflow.getStartsAt());
+        assertEquals("test-state",
+                     workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());
@@ -196,8 +201,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"basic/singleinvokestate.json", "basic/singleinvokestate.yml"})
-    public void testInvokeState(String model) {
+    @ValueSource(strings = {"basic/singlesubflowstate.json", "basic/singlesubflowstate.yml"})
+    public void testSubflowState(String model) {
 
         WorkflowManager workflowManager = getWorkflowManager();
         assertNotNull(workflowManager);
@@ -206,20 +211,21 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
 
-        assertEquals("test-state", workflow.getStartsAt());
+        assertEquals("test-state",
+                     workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());
         assertThat(workflow.getStates().size(),
                    is(1));
-        assertTrue(workflow.getStates().get(0) instanceof InvokeState);
+        assertTrue(workflow.getStates().get(0) instanceof SubflowState);
 
-        InvokeState invokeState = (InvokeState) workflow.getStates().get(0);
+        SubflowState subflowState = (SubflowState) workflow.getStates().get(0);
         assertEquals("abc",
-                     invokeState.getWorkflowId());
+                     subflowState.getWorkflowId());
         assertEquals("123",
-                     invokeState.getWorkflowVersion());
-        assertTrue(invokeState.isWaitForCompletion());
+                     subflowState.getWorkflowVersion());
+        assertTrue(subflowState.isWaitForCompletion());
     }
 
     @ParameterizedTest
@@ -233,7 +239,8 @@ public class JsonToWorkflowTest extends BaseWorkflowTest {
         Workflow workflow = workflowManager.getWorkflow();
         assertNotNull(workflow);
 
-        assertEquals("test-state", workflow.getStartsAt());
+        assertEquals("test-state",
+                     workflow.getStartsAt());
         assertThat(workflow.getTriggerDefs().size(),
                    is(0));
         assertNotNull(workflow.getStates());

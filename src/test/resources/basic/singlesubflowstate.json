@@ -9,7 +9,7 @@
       "workflow-version": "123",
       "next-state": "testNextState",
       "name": "test-wf",
-      "type": "INVOKE",
+      "type": "SUBFLOW",
       "end": true
     }
   ]

@@ -31,9 +31,9 @@ import org.serverless.workflow.api.WorkflowManager;
 import org.serverless.workflow.api.WorkflowValidator;
 import org.serverless.workflow.api.branches.Branch;
 import org.serverless.workflow.api.states.DelayState;
-import org.serverless.workflow.api.states.InvokeState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
+import org.serverless.workflow.api.states.SubflowState;
 import org.serverless.workflow.api.states.SwitchState;
 import org.serverless.workflow.api.validation.ValidationError;
 import org.serverless.workflow.api.validation.WorkflowSchemaLoader;
@@ -93,18 +93,15 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
 
-
                     if (workflow.getName() == null || workflow.getName().trim().isEmpty()) {
                         addValidationError("Workflow name should not be empty",
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
 
-                    if(workflow.getStartsAt() == null || workflow.getStartsAt().trim().isEmpty()) {
+                    if (workflow.getStartsAt() == null || workflow.getStartsAt().trim().isEmpty()) {
                         addValidationError("Workflow does not define a start state",
                                            ValidationError.WORKFLOW_VALIDATION);
                     }
-
-
 
                     // make sure we have at least one state
                     if (workflow.getStates() == null || workflow.getStates().isEmpty()) {
@@ -123,7 +120,7 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                 validation.addState(s.getName());
                             }
 
-                            if(workflow.getStartsAt() != null && s.getName() != null && workflow.getStartsAt().equals(s.getName())) {
+                            if (workflow.getStartsAt() != null && s.getName() != null && workflow.getStartsAt().equals(s.getName())) {
                                 validation.addStartState();
                             }
 
@@ -155,9 +152,9 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
 
-                                if(parallelState.getBranches() != null && parallelState.getBranches().size() > 0) {
-                                    for(Branch branch : parallelState.getBranches()) {
-                                        if(branch.getStartsAt() == null || branch.getStartsAt().trim().isEmpty()) {
+                                if (parallelState.getBranches() != null && parallelState.getBranches().size() > 0) {
+                                    for (Branch branch : parallelState.getBranches()) {
+                                        if (branch.getStartsAt() == null || branch.getStartsAt().trim().isEmpty()) {
                                             addValidationError("Branch does not define a start state..",
                                                                ValidationError.WORKFLOW_VALIDATION);
                                         }
@@ -172,15 +169,15 @@ public class WorkflowValidatorImpl implements WorkflowValidator {
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
                             }
-                            if (s instanceof InvokeState) {
-                                InvokeState invokeState = (InvokeState) s;
+                            if (s instanceof SubflowState) {
+                                SubflowState subflowState = (SubflowState) s;
 
-                                if (invokeState.getWorkflowId() == null || invokeState.getWorkflowId().trim().isEmpty()) {
+                                if (subflowState.getWorkflowId() == null || subflowState.getWorkflowId().trim().isEmpty()) {
                                     addValidationError("Invoke State does not define workflow id.",
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }
 
-                                if (invokeState.getWorkflowVersion() == null || invokeState.getWorkflowVersion().trim().isEmpty()) {
+                                if (subflowState.getWorkflowVersion() == null || subflowState.getWorkflowVersion().trim().isEmpty()) {
                                     addValidationError("Invoke State does not define workflow version.",
                                                        ValidationError.WORKFLOW_VALIDATION);
                                 }

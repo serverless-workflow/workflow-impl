@@ -41,9 +41,9 @@ import org.serverless.workflow.api.interfaces.Choice;
 import org.serverless.workflow.api.interfaces.State;
 import org.serverless.workflow.api.states.DelayState;
 import org.serverless.workflow.api.states.EventState;
-import org.serverless.workflow.api.states.InvokeState;
 import org.serverless.workflow.api.states.OperationState;
 import org.serverless.workflow.api.states.ParallelState;
+import org.serverless.workflow.api.states.SubflowState;
 import org.serverless.workflow.api.states.SwitchState;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -166,11 +166,11 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
     }
 
     @Test
-    public void testInvokeState() {
+    public void testSubflowState() {
 
         Workflow workflow = new Workflow().withName("test-wf").withId("abc").withStartsAt("test-state").withStates(new ArrayList<State>() {{
-            add(new InvokeState().withName("test-wf").withEnd(true).withNextState("testNextState").withWorkflowId("abc")
-            .withWorkflowVersion("123").withWaitForCompletion(true));
+            add(new SubflowState().withName("test-wf").withEnd(true).withNextState("testNextState").withWorkflowId("abc")
+                        .withWorkflowVersion("123").withWaitForCompletion(true));
         }});
 
         WorkflowManager workflowManager = getWorkflowManager();
@@ -180,10 +180,10 @@ public class WorkflowToMarkupTest extends BaseWorkflowTest {
         assertNotNull(workflowManager.toJson());
 
         assertThat(workflowManager.toJson(),
-                   equalToJSONInFile(getResourcePathFor("basic/singleinvokestate.json")));
+                   equalToJSONInFile(getResourcePathFor("basic/singlesubflowstate.json")));
 
         assertEquals(workflowManager.toYaml(),
-                     getFileContents(getResourcePath("basic/singleinvokestate.yml")));
+                     getFileContents(getResourcePath("basic/singlesubflowstate.yml")));
     }
 
     @Test
