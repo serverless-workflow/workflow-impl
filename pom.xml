@@ -27,23 +27,13 @@
         <spel.version>5.1.9.RELEASE</spel.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub ${OWNER} Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/${OWNER}/${project.name}</url>
-        </repository>
-    </distributionManagement>
-
-    <!-- Allows using directly GitHub repositories as dependencies -->
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>workflow-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -118,30 +108,10 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>local</id>
-            <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>workflow-api</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <!-- Default to allow other dependencies use this one -->
-            <id>ci</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.github.serverless-workflow</groupId>
-                    <artifactId>workflow-api</artifactId>
-                    <version>master-SNAPSHOT</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
