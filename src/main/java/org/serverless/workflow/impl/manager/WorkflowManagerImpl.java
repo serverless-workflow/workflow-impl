@@ -33,10 +33,10 @@ import org.serverless.workflow.api.interfaces.Extension;
 import org.serverless.workflow.api.mapper.JsonObjectMapper;
 import org.serverless.workflow.api.mapper.YamlObjectMapper;
 import org.serverless.workflow.impl.expression.JexlExpressionEvaluatorImpl;
-import org.serverless.workflow.impl.validator.WorkflowValidatorImpl;
 import org.serverless.workflow.spi.ExpressionEvaluatorProvider;
 import org.serverless.workflow.spi.WorkflowPropertySourceProvider;
 import org.serverless.workflow.spi.WorkflowValidatorProvider;
+import org.serverless.workflow.validation.WorkflowValidatorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
